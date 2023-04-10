@@ -1,5 +1,5 @@
 var npsAPIkey = "FOj8NLPQk3pjXfnLbAPTKd1psYcMq5EqEmMc72QR"
-var astroAPIkey = ""
+var astroAPIkey = btoa("ea9664be-c82f-48f1-acb7-3226214a38fb:e666dcfef554590bed0540538be22b6c278cb6b2cf58b6a1a09cfbf6c70bee4f7485ef3585e14f139bccfb85fe86025358856b4e114dc39a65c902da164dd07a935b84c7f4bb0d88df64375645b67e317db68daee7419a2a60f73e44d455314bb817459dbf995184a51ca614936814d7")
 var hamBtn = document.getElementById("ham-btn");
 var searchSection = document.querySelector(".search");
 var campSearchInput = document.getElementById("camp-search");
@@ -47,3 +47,30 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
     // If unchecking the box, remove from localStorage
     
 
+
+    
+    var lat = 33.67
+    var lon = -44.50
+    
+    function chartMaker(lat, lon) {
+        var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"2023-04-09\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"ori\"}}}`;
+        fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
+            headers: {
+                Authorization: `Basic ${astroAPIkey}`
+            },
+            method: "POST",
+            body: specs
+        }).then(function(response){
+            console.log(response);
+            return response.json();
+        }).then(function(data){
+            console.log(data);
+            console.log(data.data.imageUrl);
+            var chart = document.createElement("img");
+            var body = document.querySelector("body");
+            chart.setAttribute("src",data.data.imageUrl);
+            body.appendChild(chart)
+        })
+    }
+    
+    chartMaker(lat, lon)
