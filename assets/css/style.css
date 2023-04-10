@@ -1,19 +1,33 @@
 /* Resets the box size of every element */
 :root {
     --dark-color: #000000;
-    --accent-dark-color: #252859;
-    --accent-light-color: #4C48D9;
-    --light-color: #AD8DF2;
-    --highlight-color: #F0F287;
+    --light-color: #FFFFFF;
+    --accent-dark: #252859;
+    --accent-light: #4C48D9;
+    --accent-ultra-light: #AD8DF2;
+    --highlight: #F0F287;
 }   
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-  }
+}
+
+.search,
+#camp,
+.about,
+header {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  border: 2px solid var(--highlight);
+  border-radius: 10px;
+  /* margin: 1%; */
+}
+
+
   
-  /* Gives the body element a parent height to compare against */
+  /* Gives the body element a parent height to compare against
   html {
     height: 100%;
   }
@@ -26,10 +40,10 @@
   
   h1, h2, h3, h4, h5, h6 {
     font-size: 100%;
-  }
+  } */
   
   /* Matches the font of special elements to the rest of the page */
-  input, select, option, optgroup, textarea, button,
+  /* input, select, option, optgroup, textarea, button,
   pre, code {
     font-size: 100%;
     font-family: inherit;
@@ -41,4 +55,4 @@
   'wght' 400,
   'GRAD' 0,
   'opsz' 48
-}
+} */

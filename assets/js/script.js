@@ -47,7 +47,9 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
     // If unchecking the box, remove from localStorage
     
 
-
+var lat = 35.66;
+var lon = 66.77;
+var date = "2023-03-11";
 
     
 function chartMaker(lat, lon, date) {
@@ -69,3 +71,5 @@ function chartMaker(lat, lon, date) {
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
+
+chartMaker(lat,lon,date);
