@@ -46,4 +46,80 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
     // If checking the box, change the checkbox style and to "filled" and store camp-name, location, lat/lon in localStorage.
     // If unchecking the box, remove from localStorage
     
+function npsSearch(campSearchInput) {
+    if (stateCodeArr.includes(campSearchInput)) {
+        var startNum = Math.floor(Math.random() * 5);
 
+        var stateRequest = `https://developer.nps.gov/api/v1/campgrounds?stateCode=${campSearchInput}&start=${startNum}&api_key=${npsAPIkey}`;
+
+        fetch(stateRequest).then(response => response.json()).then(data => {
+            console.log(data);
+            
+            var maxNum = 5;
+            if (data.data.length < maxNum) {
+                maxNum = data.data.length
+            }
+            for (let i = 0; i < maxNum; i++) {
+                const campground = data.data[Math.floor(Math.random() * data.data.length)];
+                var name = campground.name;
+                var lat = campground.latitude;
+                var lon = campground.longitude;
+                var location = '';
+                if (campground.addresses.length > 0) {
+                    var tempArr = campground.addresses;
+                    for (let index = 0; index < tempArr.length; index++) {
+                        if(tempArr[index].type == 'Physical') {
+                            location = tempArr[index].line1;
+                        }    
+                    }    
+                } 
+                    
+            var campObj = {
+                name: name,
+                latitude: lat,
+                longitude: lon,
+                location: location
+            }
+        
+             console.log(campObj);
+        }
+        })
+
+    } else {
+        var keywordRequest = `https://developer.nps.gov/api/v1/campgrounds?q=${campSearchInput}&limit=5&api_key=${npsAPIkey}`;
+
+        fetch(keywordRequest).then(response => response.json()).then(data => {
+            console.log(data);
+            keywordResponse(data);
+        })
+            
+        function keywordResponse(data) {
+            for (let i = 0; i < data.data.length; i++) {
+                const campground = data.data[i];
+                var name = campground.name;
+                var lat = campground.latitude;
+                var lon = campground.longitude;
+                var location = '';
+                if (campground.addresses.length > 0) {
+                    var tempArr = campground.addresses;
+                    for (let index = 0; index < tempArr.length; index++) {
+                        if(tempArr[index].type == 'Physical') {
+                            location = tempArr[index].line1;
+                        }    
+                    }    
+                } 
+                
+                var campObj = {
+                    name: name,
+                    latitude: lat,
+                    longitude: lon,
+                    location: location
+                }
+                    console.log(campObj);
+            }
+        }
+    }
+}
+
+//npsSearch('WA');
+//npsSearch('lake stevens')
