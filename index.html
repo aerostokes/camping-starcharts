@@ -4,13 +4,54 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>camping-starcharts</title>
+    <title>Campricorn</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <!-- Materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 <body>
-    
+    <header>
+        <h1>Campricorn</h1>
+        <span id="ham-btn" class="material-symbols-outlined">menu</span>
+    </header>
+    <section class="search">
+        <form class="input-form">
+            <input id="camp-search" type="text" placeholder="Yellowstone">
+            <input id="datepicker" type="text" class="datepicker">
+            <button id="search-btn">Search</button>
+        </form>
+        <button id="fav-toggle">Favorites</button>
+        <ul id="results">
+            <li>
+                <h3>Camp Name</h3>
+                <p>location</p>
+                <input class="fav-btn" type="checkbox">
+            </li>
+            <li>
+                <h3>Camp Name</h3>
+                <p>location</p>
+                <input class="fav-btn" type="checkbox">
+            </li>
+        </ul>
+    </section>
+
+    <section id="campsite">
+        <h2>Campground Name</h2>
+        <input class="fav-btn" type="checkbox">
+        <img id="chart" src="" alt="star chart">
+        <aside id="info">
+            <h3>campsite info <a href=""><span class="material-symbols-outlined">open_in_new</span></a></h3>
+            <ul id="info-list"></ul>
+        </aside>
+    </section>
+
+    <section class="about">
+        <h2>About</h2>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor deleniti repudiandae, veniam tenetur mollitia voluptatum vel quos? Fugit saepe quia aperiam eligendi molestias, culpa incidunt accusantium omnis, similique, nostrum laudantium!</p>
+    </section>
+
     <!-- Materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/script.js"></script>
