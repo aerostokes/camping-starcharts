@@ -48,12 +48,14 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
     
 
 
+    // Testing variables only
+    var lat = 33.67;
+    var lon = -44.50;
+    var date = "2023-04-09"
     
-    var lat = 33.67
-    var lon = -44.50
-    
-    function chartMaker(lat, lon) {
-        var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"2023-04-09\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"ori\"}}}`;
+    function chartMaker(lat, lon, date) {
+        // This pulls a view of the orion constellation from the given lat and lon. Could change to just sky view
+        var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"ori\"}}}`;
         fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
             headers: {
                 Authorization: `Basic ${astroAPIkey}`
@@ -73,4 +75,4 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
         })
     }
     
-    chartMaker(lat, lon)
+    chartMaker(lat, lon, date)
