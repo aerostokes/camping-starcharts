@@ -18,43 +18,51 @@
         </header>
     <div>
         <div class="row">
-            <section class="search col s12 m4">
-                <form class="input-form">
-                    <input id="camp-search" type="text" placeholder="Yellowstone">
-                    <input id="datepicker" type="text" class="datepicker">
-                    <button id="search-btn" class="btn">Search</button>
-                </form>
-                <button id="fav-toggle" class="btn">Favorites</button>
-                <ul id="results">
-                    <li class="card">
-                        <h3 class="card-title">Camp Name</h3>
-                        <p>location</p>
+            <div class="col s12 m4">
+                <section class="search">
+                    <form class="input-form">
+                        <input id="camp-search" type="text" placeholder="Yellowstone">
+                        <input id="datepicker" type="text" class="datepicker">
+                        <button id="search-btn" class="btn">Search</button>
+                    </form>
+                    <button id="fav-toggle" class="btn">Favorites</button>
+                    <ul id="results">
+                        <li class="card">
+                            <h3 class="card-title">Camp Name</h3>
+                            <p>location</p>
+                            <input class="fav-btn" type="checkbox">
+                        </li>
+                        <li class="card">
+                            <h3 class="card-title">Camp Name</h3>
+                            <p>location</p>
+                            <input class="fav-btn" type="checkbox">
+                        </li>
+                    </ul>
+                </section>
+            </div>
+            
+            <div class="camp col s12 m8">
+                <section id="camp">
+                    <div>
+                        <h2 id="camp-name">Campground Name</h2>
                         <input class="fav-btn" type="checkbox">
-                    </li>
-                    <li class="card">
-                        <h3 class="card-title">Camp Name</h3>
-                        <p>location</p>
-                        <input class="fav-btn" type="checkbox">
-                    </li>
-                </ul>
-            </section>
-        
-            <section id="camp" class="col s12 m8">
-                <h2 id="camp-name">Campground Name</h2>
-                <input class="fav-btn" type="checkbox">
-                <div>
-                    <img id="chart" class="col s8 responsive-img" src="" alt="star chart">
-                    <aside id="info" class="col s4">
-                        <h3>campsite info <a id="camp-url" href=""><span class="material-symbols-outlined">open_in_new</span></a></h3>
-                        <ul id="info-list"></ul>
-                    </aside>
-                </div>
-            </section>
-        
-            <section class="about col s12 m8">
-                <h2>About</h2>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor deleniti repudiandae, veniam tenetur mollitia voluptatum vel quos? Fugit saepe quia aperiam eligendi molestias, culpa incidunt accusantium omnis, similique, nostrum laudantium!</p>
-            </section>
+                    </div>
+                    <div>
+                        <img id="chart" class="col s8 responsive-img" src="" alt="star chart">
+                        <aside id="info" class="col s4">
+                            <h3>campsite info <a id="camp-url" href=""><span class="material-symbols-outlined">open_in_new</span></a></h3>
+                            <ul id="info-list"></ul>
+                        </aside>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="col s12 m8">
+                <section class="about">
+                    <h2>About</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor deleniti repudiandae, veniam tenetur mollitia voluptatum vel quos? Fugit saepe quia aperiam eligendi molestias, culpa incidunt accusantium omnis, similique, nostrum laudantium!</p>
+                </section>
+            </div>
         </div>
     </div>
         
