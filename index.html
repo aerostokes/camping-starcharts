@@ -24,7 +24,7 @@
         </form>
         <button id="fav-toggle">Favorites</button>
         <ul id="results">
-            <li>
+            <li data-lat="xxxxx" data-lon="yyyyyy">
                 <h3>Camp Name</h3>
                 <p>location</p>
                 <input class="fav-btn" type="checkbox">
@@ -37,12 +37,12 @@
         </ul>
     </section>
 
-    <section id="campsite">
-        <h2>Campground Name</h2>
+    <section id="camp" class="hide">
+        <h2 id="camp-name">Campground Name</h2>
         <input class="fav-btn" type="checkbox">
         <img id="chart" src="" alt="star chart">
         <aside id="info">
-            <h3>campsite info <a href=""><span class="material-symbols-outlined">open_in_new</span></a></h3>
+            <h3>campsite info <a id="camp-url" href=""><span class="material-symbols-outlined">open_in_new</span></a></h3>
             <ul id="info-list"></ul>
         </aside>
     </section>
