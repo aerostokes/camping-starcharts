@@ -48,31 +48,24 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
     
 
 
-    // Testing variables only
-    var lat = 33.67;
-    var lon = -44.50;
-    var date = "2023-04-09"
+
     
-    function chartMaker(lat, lon, date) {
-        // This pulls a view of the orion constellation from the given lat and lon. Could change to just sky view
-        var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"ori\"}}}`;
-        fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
-            headers: {
-                Authorization: `Basic ${astroAPIkey}`
-            },
-            method: "POST",
-            body: specs
-        }).then(function(response){
-            console.log(response);
-            return response.json();
-        }).then(function(data){
-            console.log(data);
-            console.log(data.data.imageUrl);
-            var chart = document.createElement("img");
-            var body = document.querySelector("body");
-            chart.setAttribute("src",data.data.imageUrl);
-            body.appendChild(chart)
-        })
-    }
-    
-    chartMaker(lat, lon, date)
+function chartMaker(lat, lon, date) {
+    // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
+    // Can change it to a different constellation, or perspective.
+    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+    fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
+         headers: {
+            Authorization: `Basic ${astroAPIkey}`
+        },
+        method: "POST",
+        body: specs
+    }).then(function(response){
+        console.log(response);
+        return response.json();
+    }).then(function(data){
+        console.log(data);
+        console.log(data.data.imageUrl);
+        chartImg.setAttribute("src",data.data.imageUrl);
+    })
+}
