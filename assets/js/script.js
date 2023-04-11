@@ -7,9 +7,9 @@ var datePickerInput = document.getElementById("datepicker");
 var searchBtn = document.getElementById("search-btn");
 var favToggleBtn = document.getElementById("fav-toggle");
 var resultsUl = document.getElementById("results");
-
 var campSection = document.getElementById("camp");
 var campNameEl = document.getElementById("camp-name");
+var campFavBtn = document.getElementById("camp-fav-btn");
 var chartImg = document.getElementById("chart");
 var infoAside = document.getElementById("info");
 var campURL = document.getElementById("camp-url");
@@ -45,7 +45,45 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 // If the user clicks fav-btn: 
     // If checking the box, change the checkbox style and to "filled" and store camp-name, location, lat/lon in localStorage.
     // If unchecking the box, remove from localStorage
-    
+// ---------------------------------------------------------------
+
+    // Function to save camp to localStorage 
+    function saveFavorite() {
+        // TODO: add to localStorage
+    }
+
+    // Handler for if user clicks on a favorite button (either from the result cards or from the campSection)
+    function handlerFavoritesClick(event) {
+        var clickedButton = event.target;
+        if (clickedButton.getAttribute("class") == "fav-btn-checked") {
+            clickedButton.setAttribute("class", "fav-btn-unchecked");
+            // TODO: deleted favorite
+        }
+        else {
+            clickedButton.setAttribute("class", "fav-btn-checked");
+            saveFavorite();
+        };
+    };
+
+    // Handler for if user clicks anywhere in resultsUl 
+    function handlerResultsClick (event) {
+        var clickedEl = event.target;
+        if (clickedEl.matches("button")) {
+            handlerFavoritesClick(event);
+        }
+        else if (clickedEl.parentElement.matches("li")) {
+            // TODO: populate campSection with the info for this card 
+            console.log(clickedEl.parentElement);
+        };
+    };
+
+    // Event Listeners
+    campFavBtn.addEventListener("click", handlerFavoritesClick)
+    resultsUl.addEventListener("click", handlerResultsClick)
+
+
+
+
 function npsSearch(campSearchInput) {
     if (stateCodeArr.includes(campSearchInput)) {
         var startNum = Math.floor(Math.random() * 5);

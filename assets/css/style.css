@@ -42,3 +42,42 @@
   'GRAD' 0,
   'opsz' 48
 }
+
+/* .fav-label {
+  position: relative;
+}
+
+#fav-btn {
+  position: absolute;
+  opacity:0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.fav-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
+#camp-name {
+  display: inline;
+}
+
+.fav-btn-unchecked, .fav-btn-checked {
+  border: 0px;
+  background-color: #00000000;
+  display: inline;
+}
+
+.fav-btn-checked span, .fav-btn-unchecked span {
+  pointer-events: none;
+}
+
+.fav-btn-checked span {
+  font-variation-settings: 'FILL' 100;
+  color: var(--highlight-color);
+}
+
+
