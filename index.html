@@ -5,57 +5,76 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campricorn</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <!-- Materialize -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Bulma Stylesheet Link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <!-- Google Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!-- Custom Stylesheet Link -->
+    <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <header>
-        <h1>Campricorn</h1>
-        <span id="ham-btn" class="material-symbols-outlined">menu</span>
+    <header class="navbar is-black is-spaced">
+        <h1 class="">Campricorn</h1>
+        <div class="">
+            <span id="ham-btn" class="material-symbols-outlined">menu</span>
+        </div>
     </header>
-    <section class="search">
-        <form class="input-form">
-            <input id="camp-search" type="text" placeholder="Yellowstone">
-            <input id="datepicker" type="text" class="datepicker">
-            <button id="search-btn">Search</button>
-        </form>
-        <button id="fav-toggle">Favorites</button>
-        <ul id="favorites">
-        </ul>
-        <ul id="results">
-            <li>
-                <h3>Camp Name</h3>
-                <p>location</p>
-                <button class="fav-btn-unchecked"><span class="material-symbols-outlined">star</span></button>
-            </li>
-            <li>
-                <h3>Camp Name</h3>
-                <p>location</p>
-                <button class="fav-btn-unchecked"><span class="material-symbols-outlined">star</span></button>
-            </li>
-        </ul>
-    </section>
+    <div class="columns container is-fluid">
+        <div class="column is-one-third">
+            <section class="search section">
+                        <div class="field">
+                            <label class="label">Campground Name</label>
+                            <div class="control">
+                                <input id="camp-search" type="text" placeholder="Yellowstone">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Date of Visit</label>
+                            <div class="control">
+                                <input id="datepicker" type="text" class="datepicker">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <button id="search-btn">Search</button>
+                        </div>
+                        <button id="fav-toggle">Favorites</button>
+                        <ul id="favorites">
+                        </ul>
+                        <ul id="results">
+                            <li class="card">
+                                <h3 class="card-header">Camp Name</h3>
+                                <p>location</p>
+                                <button class="fav-btn-unchecked"><span class="material-symbols-outlined">star</span></button>
+                            </li>
+                            <li class="card">
+                                <h3 class="card-header">Camp Name</h3>
+                                <p>location</p>
+                                <button class="fav-btn-unchecked"><span class="material-symbols-outlined">star</span></button>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+        
+        <div class="column">
+            <section id="camp" class="">
+                <h2 id="camp-name">Campground Name</h2>
+                <button id="camp-fav-btn" class="fav-btn-unchecked"><span class="material-symbols-outlined">star</span></button>
+                <img id="chart" src="" alt="star chart">
+                <aside id="info">
+                    <h3>campsite info <a id="camp-url" href=""><span class="material-symbols-outlined">open_in_new</span></a></h3>
+                    <ul id="info-list"></ul>
+                </aside>
+            </section>
+        </div>
+        
+        <div class="column">
+            <section class="about">
+                <h2>About</h2>
+                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor deleniti repudiandae, veniam tenetur mollitia voluptatum vel quos? Fugit saepe quia aperiam eligendi molestias, culpa incidunt accusantium omnis, similique, nostrum laudantium!</p>
+            </section>
+        </div>
+    </div>
 
-    <section id="camp">
-        <h2 id="camp-name">Campground Name</h2>
-        <button id="camp-fav-btn" class="fav-btn-unchecked"><span class="material-symbols-outlined">star</span></button>
-        <img id="chart" src="" alt="star chart">
-        <aside id="info">
-            <h3>campsite info <a id="camp-url" href=""><span class="material-symbols-outlined">open_in_new</span></a></h3>
-            <ul id="info-list"></ul>
-        </aside>
-    </section>
-
-    <section class="about">
-        <h2>About</h2>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor deleniti repudiandae, veniam tenetur mollitia voluptatum vel quos? Fugit saepe quia aperiam eligendi molestias, culpa incidunt accusantium omnis, similique, nostrum laudantium!</p>
-    </section>
-
-    <!-- Materialize -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

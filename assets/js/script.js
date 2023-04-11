@@ -80,9 +80,11 @@ function retrieveFavorites() {
         // writing to page
         var favCardEl = document.createElement('li');
         var favNameEl = document.createElement('h3');
-        var favFavBtn = document.createElement('button')
+        var favFavBtn = document.createElement('button');
         var favLocationEl = document.createElement('p');
         
+        favCardEl.setAttribute("class", "card")
+        favNameEl.setAttribute("class","card-header");
         favNameEl.textContent = element.name;
         favFavBtn.setAttribute("class", "fav-btn-checked");
         favFavBtn.innerHTML = "<span class='material-symbols-outlined'>star</span>";
@@ -175,6 +177,8 @@ function npsResponse(campground){
     var resultFav = document.createElement('button')
     var resultLocationEl = document.createElement('p');
 
+    resultCardEl.setAttribute("class", "card");
+    resultNameEl.setAttribute("class","card-header");
     resultNameEl.textContent = name;
     resultFav.setAttribute("class", "fav-btn-unchecked");
     resultFav.innerHTML = "<span class='material-symbols-outlined'>star</span>";
@@ -239,6 +243,7 @@ function npsSearch(campSearchInput) {
 //npsSearch('Rainier'); //no results
 
     
+// chartMaker(lat,lon,date);
 function chartMaker(lat, lon, date) {
     // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
     // Can change it to a different constellation, or perspective.
@@ -259,7 +264,7 @@ function chartMaker(lat, lon, date) {
     })
 }
 
-    // Event Listeners and page load
+    // Event Listeners and page load 
     campFavBtn.addEventListener("click", handlerFavoritesClick);
     resultsUl.addEventListener("click", handlerResultsClick);
     retrieveFavorites();
