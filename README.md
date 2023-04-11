@@ -2,7 +2,7 @@
 
 ## 📝 Description
 
-Campricorn is a front-end application that utilizes two server-side APIs to help users find the best place to camp and stargaze. Users can input a state code or a campground name, and a date, see their list of favorite campsites, and choose a specific campground to view a star chart. Thanks to Materialize and custom CSS, Campricorn has a polished and responsive interface, thats easy to use. Deployed on GitHub Pages, Stargazer Campgrounds is the perfect app for anyone interested in astronomy and camping.
+Campricorn is a front-end application that utilizes two server-side APIs to help users find the best place to camp and stargaze. Users can input a state code or a campground name, and a date, see their list of favorite campsites, and choose a specific campground to view a star chart. Thanks in part to Bulma and a lot of custom CSS, Campricorn has a polished and responsive interface, thats easy to use. Deployed on GitHub Pages, Stargazer Campgrounds is the perfect app for anyone interested in astronomy and camping.
 
 
 ## Table of Contents
@@ -33,9 +33,7 @@ GIVEN a program that correlates star charts with campsite locations,
 WHEN I open the page 
 THEN I am met with a clean polished responsive interface.
 WHEN I’m on the first page 
-THEN I am shown an input form for either a state code or an campground name, and a date
-WHEN I’m on the first page
-THEN I am shown my list of favorite campsites (if there are any)
+THEN I am shown an input form for either a state code or an campground name, and a date, as well as a list of my favorite campsites (if there are any)
 WHEN I enter a state code
 THEN I am given a random assortment of campgrounds to choose from in that state
 WHEN I enter a campsite name
@@ -53,7 +51,7 @@ THEN I am given a star chart for that campground
 <li> HTML
 <li> CSS
 <li> JavaScript
-<li> Materialize Framework
+<li> Bulma Framework
 <li> Server Side APIs
 <li> Git Pages
 </ul>
