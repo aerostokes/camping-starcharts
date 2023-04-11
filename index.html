@@ -23,7 +23,6 @@
     <div class="columns container is-fluid">
         <div class="column is-one-third">
             <section class="search section">
-                <form class="input-form">
                         <div class="field">
                             <label class="label">Campground Name</label>
                             <div class="control">
@@ -31,12 +30,14 @@
                             </div>
                         </div>
                         <div class="field">
-                            <input id="datepicker" type="text" class="datepicker">
+                            <label class="label">Date of Visit</label>
+                            <div class="control">
+                                <input id="datepicker" type="text" class="datepicker">
+                            </div>
                         </div>
                         <div class="field">
                             <button id="search-btn">Search</button>
                         </div>
-                    </form>
                         <button id="fav-toggle">Favorites</button>
                         <ul id="results">
                             <li class="card">
@@ -73,8 +74,6 @@
         </div>
     </div>
 
-    <!-- Materialize -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
