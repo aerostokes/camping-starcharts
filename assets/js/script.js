@@ -57,7 +57,7 @@ function npsSearch(campSearchInput) {
             
             var maxNum = 5;
             if (data.data.length < maxNum) {
-                maxNum = data.data.length
+                maxNum = data.data.length;
             }
             for (let i = 0; i < maxNum; i++) {
                 const campground = data.data[Math.floor(Math.random() * data.data.length)];
@@ -72,17 +72,26 @@ function npsSearch(campSearchInput) {
                             location = tempArr[index].line1;
                         }    
                     }    
-                } 
-                    
-            var campObj = {
-                name: name,
-                latitude: lat,
-                longitude: lon,
-                location: location
+                }      
+                var campObj = {
+                    name: name,
+                    latitude: lat,
+                    longitude: lon,
+                    location: location
+                }
+                console.log(campObj);
+
+                var resultCardEl = document.createElement('button');
+                var resultNameEl = document.createElement('h3');
+                var resultLocationEl = document.createElement('p');
+                var resultFav = document.createElement('button')
+
+                resultNameEl.textContent = name;
+                resultLocationEl.textContent = location;
+                
+                resultCardEl.append(resultNameEl, resultLocationEl, resultFav);
+                resultsUl.append(resultCardEl);
             }
-        
-             console.log(campObj);
-        }
         })
 
     } else {
@@ -90,10 +99,6 @@ function npsSearch(campSearchInput) {
 
         fetch(keywordRequest).then(response => response.json()).then(data => {
             console.log(data);
-            keywordResponse(data);
-        })
-            
-        function keywordResponse(data) {
             for (let i = 0; i < data.data.length; i++) {
                 const campground = data.data[i];
                 var name = campground.name;
@@ -107,17 +112,27 @@ function npsSearch(campSearchInput) {
                             location = tempArr[index].line1;
                         }    
                     }    
-                } 
-                
+                }      
                 var campObj = {
                     name: name,
                     latitude: lat,
                     longitude: lon,
                     location: location
                 }
-                    console.log(campObj);
+                console.log(campObj);
+                
+                var resultCardEl = document.createElement('button');
+                var resultNameEl = document.createElement('h3');
+                var resultLocationEl = document.createElement('p');
+                var resultFav = document.createElement('button');
+
+                resultNameEl.textContent = name;
+                resultLocationEl.textContent = location;
+                
+                resultCardEl.append(resultNameEl, resultLocationEl, resultFav);
+                resultsUl.append(resultCardEl);
             }
-        }
+        })
     }
 }
 
