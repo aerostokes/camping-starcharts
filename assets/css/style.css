@@ -65,9 +65,11 @@ input {
   font-size: 20px;
   font-weight: bold;
   padding: 2%;
+  border-style: none;
   border-radius: 20px;
   background-color: var(--highlight);
   color: var(--dark-color);
+  transition: all .35s ease;
 }
 
 #search-btn:hover {
@@ -75,15 +77,89 @@ input {
   color: var(--light-color)
 }
 
+button#fav-toggle {
+  width: 100%;
+  background-color: var(--dark-color);
+  text-align: left;
+  color: var(--light-color);
+  font-size: 24px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: 3px solid var(--accent-light);
+  border-radius: 5px;
+}
+
+
+
+button#fav-toggle span.icon {
+  color: var(--highlight);
+  font-variation-settings: 'FILL' 100;
+}
 
 .card {
   margin: 2% .5%;
   background-color: var(--accent-dark);
-  border: 2px solid var(--accent-light);
+  border: 2px solid var(--accent-ultra-light);
+  color: var(--light-color);
+  padding: 5px;
+}
+
+.card:hover {
+  transform: scale(1.025,1.025);
+  transition: all .25s ease;
+}
+.card h3{
+  font-size: 20px;
+}
+
+button.fav-btn-unchecked {
+  color: var(--accent-ultra-light);
+  transition: all .35s ease;
+}
+
+button.fav-btn-checked,
+button.fav-btn-unchecked:hover {
+  color: var(--highlight);
+}
+
+#camp {
+  background-color: var(--dark-color);
+  border: 3px solid var(--accent-ultra-light);
+  border-radius: 20px;
   color: var(--light-color);
 }
 
+#camp h2 {
+  font-size: 250%;
+  padding: 10px;
+}
 
+#info h3 {
+  font-size: 175%;
+}
+
+#camp span.icon button span {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 40px;
+  font-variation-settings: 'PSZ' 48;
+}
+
+#info span.icon span {
+  text-align: center;
+  margin-top: 15px;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+#camp img {
+  margin: 10px;
+}
+
+aside ul li {
+  list-style-type: none;
+}
   
   /* Gives the body element a parent height to compare against
   html {
