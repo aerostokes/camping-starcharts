@@ -54,7 +54,7 @@ $( function() {
       changeMonth: true,
       changeYear: true
     });
-  } );
+} );
 
 
 // Function to save camp to localStorage 
@@ -251,13 +251,12 @@ function npsSearch(campSearchInput) {
 //npsSearch('Rainier'); //no results
 
     
-// chartMaker(lat,lon,date);
 function chartMaker(lat, lon, date) {
     // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
     // Can change it to a different constellation, or perspective.
     var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
     fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
-         headers: {
+        headers: {
             Authorization: `Basic ${astroAPIkey}`
         },
         method: "POST",
@@ -271,6 +270,7 @@ function chartMaker(lat, lon, date) {
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
+chartMaker(45.66,12.34,"2020-06-07");
 
     // Event Listeners and page load 
     campFavBtn.addEventListener("click", handlerFavoritesClick);
