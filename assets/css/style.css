@@ -1,6 +1,6 @@
 /* Resets the box size of every element */
 :root {
-    --dark-color: #000000;
+    --dark-color: #0a0a0a;
     --light-color: #FFFFFF;
     --accent-dark: #252859;
     --accent-light: #4C48D9;
@@ -8,11 +8,11 @@
     --highlight: #F0F287;
 }   
 
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
 body {
   background-color: var(--accent-dark);
@@ -20,8 +20,7 @@ body {
 
 .search,
 #camp,
-.about,
-header {
+.about {
   background-color: var(--dark-color);
   color: var(--light-color);
   border: 2px solid var(--highlight);

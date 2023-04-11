@@ -222,4 +222,4 @@ function chartMaker(lat, lon, date) {
     })
 }
 
-chartMaker(lat,lon,date);
+// chartMaker(lat,lon,date);
