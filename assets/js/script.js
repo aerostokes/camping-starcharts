@@ -83,8 +83,9 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 
 
 
-
+// function for sending requests and recieving responses for the NPS API
 function npsSearch(campSearchInput) {
+    // checking if the input is a state code
     if (stateCodeArr.includes(campSearchInput)) {
         var startNum = Math.floor(Math.random() * 5);
 
@@ -92,7 +93,13 @@ function npsSearch(campSearchInput) {
 
         fetch(stateRequest).then(response => response.json()).then(data => {
             console.log(data);
-            
+            // if no result for search, no result card will appear
+            if (data.total == 0) {
+                var noResult = document.createElement('h3');
+                noResult.textContent = 'No results';
+                resultsUl.append(noResult);
+            }
+            // getting a random 5 parks from the results given for specified state
             var maxNum = 5;
             if (data.data.length < maxNum) {
                 maxNum = data.data.length;
@@ -103,6 +110,8 @@ function npsSearch(campSearchInput) {
                 var lat = campground.latitude;
                 var lon = campground.longitude;
                 var location = '';
+                var description = campground.description; //we can change this with whatever we decide to display for the info box
+                // checking if a location address is available
                 if (campground.addresses.length > 0) {
                     var tempArr = campground.addresses;
                     for (let index = 0; index < tempArr.length; index++) {
@@ -110,12 +119,14 @@ function npsSearch(campSearchInput) {
                             location = tempArr[index].line1;
                         }    
                     }    
-                }      
+                }
+                // object to hold necessary info for each camp 
                 var campObj = {
                     name: name,
                     latitude: lat,
                     longitude: lon,
-                    location: location
+                    location: location,
+                    info: description //we can change this with whatever we decide to display for the info box
                 }
                 console.log(campObj);
 
@@ -131,18 +142,26 @@ function npsSearch(campSearchInput) {
                 resultsUl.append(resultCardEl);
             }
         })
-
+        // if input isn't a state code it will be treated as a key word request
     } else {
         var keywordRequest = `https://developer.nps.gov/api/v1/campgrounds?q=${campSearchInput}&limit=5&api_key=${npsAPIkey}`;
 
         fetch(keywordRequest).then(response => response.json()).then(data => {
             console.log(data);
+            if (data.total == 0) {
+                var noResult = document.createElement('h3');
+                noResult.textContent = 'No results';
+                resultsUl.append(noResult);
+            }
+
             for (let i = 0; i < data.data.length; i++) {
                 const campground = data.data[i];
                 var name = campground.name;
                 var lat = campground.latitude;
                 var lon = campground.longitude;
                 var location = '';
+                var description = campground.description; //we can change this with whatever we decide to display for the info box
+
                 if (campground.addresses.length > 0) {
                     var tempArr = campground.addresses;
                     for (let index = 0; index < tempArr.length; index++) {
@@ -151,11 +170,13 @@ function npsSearch(campSearchInput) {
                         }    
                     }    
                 }      
+                
                 var campObj = {
                     name: name,
                     latitude: lat,
                     longitude: lon,
-                    location: location
+                    location: location,
+                    info: description //we can change this with whatever we decide to display for the info box
                 }
                 console.log(campObj);
                 
@@ -173,9 +194,10 @@ function npsSearch(campSearchInput) {
         })
     }
 }
-
-//npsSearch('WA');
-//npsSearch('lake stevens')
+// to test results just uncomment one of the below: 
+//npsSearch('WA'); //state search results
+//npsSearch('Lake Stevens'); //keyword results
+//npsSearch('Rainier'); //no results
 
     
 function chartMaker(lat, lon, date) {
