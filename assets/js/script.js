@@ -231,3 +231,5 @@ function chartMaker(lat, lon, date) {
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
+
+// chartMaker(lat,lon,date);
