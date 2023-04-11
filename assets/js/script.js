@@ -16,7 +16,8 @@ var campURL = document.getElementById("camp-url");
 var infoListUl = document.getElementById("info-list");
 var aboutSection = document.querySelector(".about");
 var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
-
+var campResultsArr = []
+var favArr = []
 
 
 // On page load, populate favorites from localStorage (if any)
@@ -48,9 +49,23 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 // ---------------------------------------------------------------
 
     // Function to save camp to localStorage 
-    function saveFavorite() {
-        // TODO: add to localStorage
-    }
+    function saveFavorite(clickedParent) {
+        // Read campName and parkcode from page
+        var campNameStr;
+        if (clickedParent.matches("li")) { campNameStr = clickedParent.querySelector("h3").textContent }
+        else { campNameStr = clickedParent.querySelector("h2").textContent };
+        
+        // Pull obj from campResultsArr
+        var getObj = campResultsArr.find(obj => obj.name == campNameStr);
+        var parkcodeStr = getObj.parkcode;
+
+        // Check if camp is already saved
+        if (!(favArr.find(obj => (obj.name == campNameStr && obj.parkcode == parkcodeStr)))) {
+            favArr.push(getObj);
+            localStorage.setItem("FavoriteCampgrounds", JSON.stringify(favArr));
+        };
+    };
+
 
     // Handler for if user clicks on a favorite button (either from the result cards or from the campSection)
     function handlerFavoritesClick(event) {
@@ -61,7 +76,8 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
         }
         else {
             clickedButton.setAttribute("class", "fav-btn-checked");
-            saveFavorite();
+            var clickedParent = clickedButton.parentElement
+            saveFavorite(clickedParent);
         };
     };
 
@@ -81,12 +97,72 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
     campFavBtn.addEventListener("click", handlerFavoritesClick)
     resultsUl.addEventListener("click", handlerResultsClick)
 
-var lat = 35.66;
-var lon = 66.77;
-var date = "2023-03-11";
+// function to pull specific data from nps response
+function npsResponse(campground){
+    // info being pulled from data
+    var name = campground.name;
+    var parkcode = campground.parkCode;
+    var lat = campground.latitude;
+    var lon = campground.longitude;
+    var location = '';
+    var campsitesInfo = [
+        'totalSites: ' + campground.campsites.totalSites,
+        'tentOnly: ' + campground.campsites.tentOnly,
+        'other: ' + campground.campsites.other
+    ];
+    var amenitiesInfo = [
+        'cellPhoneReception: ' + campground.amenities.cellPhoneReception,
+        'potableWater: ' + campground.amenities.potableWater,
+        'toilets: ' + campground.amenities.toilets
+    ];
+    var description = campground.description;
+    var siteUrl= campground.url;
+    
+    // checking if a location address is available
+    if (campground.addresses.length > 0) {
+        var tempArr = campground.addresses;
+        for (let index = 0; index < tempArr.length; index++) {
+            if(tempArr[index].type == 'Physical') {
+                location = tempArr[index].line1;
+            }    
+        }    
+    }
+    
+    // object to hold necessary info for each camp 
+    var campObj = {
+        name: name,
+        parkcode: parkcode,
+        latitude: lat,
+        longitude: lon,
+        location: location,
+        campsites: campsitesInfo,
+        amenities: amenitiesInfo,
+        description: description,
+        url: siteUrl,
+    }
+    console.log(campObj);
+
+    campResultsArr.push(campObj);
+
+    // writing to page
+    var resultCardEl = document.createElement('li');
+    var resultNameEl = document.createElement('h3');
+    var resultFav = document.createElement('button')
+    var resultLocationEl = document.createElement('p');
+
+    resultNameEl.textContent = name;
+    resultFav.setAttribute("class", "fav-btn-unchecked");
+    resultFav.innerHTML = "<span class='material-symbols-outlined'>star</span>"
+    resultLocationEl.textContent = location;
+                
+    resultCardEl.append(resultNameEl, resultFav, resultLocationEl);
+    resultsUl.append(resultCardEl);
+
+}
 
 // function for sending requests and recieving responses for the NPS API
 function npsSearch(campSearchInput) {
+    resultsUl.innerHTML = '';
     // checking if the input is a state code
     if (stateCodeArr.includes(campSearchInput)) {
         var startNum = Math.floor(Math.random() * 5);
@@ -108,43 +184,10 @@ function npsSearch(campSearchInput) {
             }
             for (let i = 0; i < maxNum; i++) {
                 const campground = data.data[Math.floor(Math.random() * data.data.length)];
-                var name = campground.name;
-                var lat = campground.latitude;
-                var lon = campground.longitude;
-                var location = '';
-                var description = campground.description; //we can change this with whatever we decide to display for the info box
-                // checking if a location address is available
-                if (campground.addresses.length > 0) {
-                    var tempArr = campground.addresses;
-                    for (let index = 0; index < tempArr.length; index++) {
-                        if(tempArr[index].type == 'Physical') {
-                            location = tempArr[index].line1;
-                        }    
-                    }    
-                }
-                // object to hold necessary info for each camp 
-                var campObj = {
-                    name: name,
-                    latitude: lat,
-                    longitude: lon,
-                    location: location,
-                    info: description //we can change this with whatever we decide to display for the info box
-                }
-                console.log(campObj);
-
-                var resultCardEl = document.createElement('button');
-                var resultNameEl = document.createElement('h3');
-                var resultLocationEl = document.createElement('p');
-                var resultFav = document.createElement('button')
-
-                resultNameEl.textContent = name;
-                resultLocationEl.textContent = location;
-                
-                resultCardEl.append(resultNameEl, resultLocationEl, resultFav);
-                resultsUl.append(resultCardEl);
+                npsResponse(campground);
             }
         })
-        // if input isn't a state code it will be treated as a key word request
+    // if input isn't a state code it will be treated as a key word request
     } else {
         var keywordRequest = `https://developer.nps.gov/api/v1/campgrounds?q=${campSearchInput}&limit=5&api_key=${npsAPIkey}`;
 
@@ -158,46 +201,13 @@ function npsSearch(campSearchInput) {
 
             for (let i = 0; i < data.data.length; i++) {
                 const campground = data.data[i];
-                var name = campground.name;
-                var lat = campground.latitude;
-                var lon = campground.longitude;
-                var location = '';
-                var description = campground.description; //we can change this with whatever we decide to display for the info box
-
-                if (campground.addresses.length > 0) {
-                    var tempArr = campground.addresses;
-                    for (let index = 0; index < tempArr.length; index++) {
-                        if(tempArr[index].type == 'Physical') {
-                            location = tempArr[index].line1;
-                        }    
-                    }    
-                }      
-                
-                var campObj = {
-                    name: name,
-                    latitude: lat,
-                    longitude: lon,
-                    location: location,
-                    info: description //we can change this with whatever we decide to display for the info box
-                }
-                console.log(campObj);
-                
-                var resultCardEl = document.createElement('button');
-                var resultNameEl = document.createElement('h3');
-                var resultLocationEl = document.createElement('p');
-                var resultFav = document.createElement('button');
-
-                resultNameEl.textContent = name;
-                resultLocationEl.textContent = location;
-                
-                resultCardEl.append(resultNameEl, resultLocationEl, resultFav);
-                resultsUl.append(resultCardEl);
+                npsResponse(campground)
             }
         })
     }
 }
 // to test results just uncomment one of the below: 
-//npsSearch('WA'); //state search results
+// npsSearch('WA'); //state search results
 //npsSearch('Lake Stevens'); //keyword results
 //npsSearch('Rainier'); //no results
 
