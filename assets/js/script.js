@@ -17,7 +17,6 @@ var infoListUl = document.getElementById("info-list");
 var aboutSection = document.querySelector(".about");
 var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
 var campResultsArr = []
-// var campResultsArr = [{name: "Camp Name", parkcode: "1234"}]
 var favArr = []
 
 
@@ -146,15 +145,17 @@ function npsResponse(campground){
     campResultsArr.push(campObj);
 
     // writing to page
-    var resultCardEl = document.createElement('button');
+    var resultCardEl = document.createElement('li');
     var resultNameEl = document.createElement('h3');
-    var resultLocationEl = document.createElement('p');
     var resultFav = document.createElement('button')
+    var resultLocationEl = document.createElement('p');
 
     resultNameEl.textContent = name;
+    resultFav.setAttribute("class", "fav-btn-unchecked");
+    resultFav.innerHTML = "<span class='material-symbols-outlined'>star</span>"
     resultLocationEl.textContent = location;
                 
-    resultCardEl.append(resultNameEl, resultLocationEl, resultFav);
+    resultCardEl.append(resultNameEl, resultFav, resultLocationEl);
     resultsUl.append(resultCardEl);
 
 }
