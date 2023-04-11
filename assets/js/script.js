@@ -49,6 +49,14 @@ var favArr = []
     // If unchecking the box, remove from localStorage
 // ---------------------------------------------------------------
 
+$( function() {
+    $('#datepicker').datepicker({
+      changeMonth: true,
+      changeYear: true
+    });
+  } );
+
+
 // Function to save camp to localStorage 
 function saveFavorite(clickedParent) {
     // Read campName and parkcode from page
