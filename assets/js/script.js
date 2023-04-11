@@ -16,7 +16,9 @@ var campURL = document.getElementById("camp-url");
 var infoListUl = document.getElementById("info-list");
 var aboutSection = document.querySelector(".about");
 var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
-
+// var campResultsArr = []
+var campResultsArr = [{name: "Camp Name", parkcode: "1234"}]
+var favArr = []
 
 
 // On page load, populate favorites from localStorage (if any)
@@ -48,9 +50,23 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 // ---------------------------------------------------------------
 
     // Function to save camp to localStorage 
-    function saveFavorite() {
-        // TODO: add to localStorage
-    }
+    function saveFavorite(clickedParent) {
+        // Read campName and parkcode from page
+        var campNameStr;
+        if (clickedParent.matches("li")) { campNameStr = clickedParent.querySelector("h3").textContent }
+        else { campNameStr = clickedParent.querySelector("h2").textContent };
+        
+        // Pull obj from campResultsArr
+        var getObj = campResultsArr.find(obj => obj.name == campNameStr);
+        var parkcodeStr = getObj.parkcode;
+
+        // Check if camp is already saved
+        if (!(favArr.find(obj => (obj.name == campNameStr && obj.parkcode == parkcodeStr)))) {
+            favArr.push(getObj);
+            localStorage.setItem("FavoriteCampgrounds", JSON.stringify(favArr));
+        };
+    };
+
 
     // Handler for if user clicks on a favorite button (either from the result cards or from the campSection)
     function handlerFavoritesClick(event) {
@@ -61,7 +77,8 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
         }
         else {
             clickedButton.setAttribute("class", "fav-btn-checked");
-            saveFavorite();
+            var clickedParent = clickedButton.parentElement
+            saveFavorite(clickedParent);
         };
     };
 
@@ -195,7 +212,7 @@ function npsSearch(campSearchInput) {
     }
 }
 // to test results just uncomment one of the below: 
-//npsSearch('WA'); //state search results
+// npsSearch('WA'); //state search results
 //npsSearch('Lake Stevens'); //keyword results
 //npsSearch('Rainier'); //no results
 
