@@ -63,9 +63,6 @@ header {
   'wght' 400,
   'GRAD' 0,
   'opsz' 48
-<<<<<<< HEAD
-} */
-=======
 }
 
 /* .fav-label {
@@ -104,6 +101,3 @@ header {
   font-variation-settings: 'FILL' 100;
   color: var(--highlight-color);
 }
-
-
->>>>>>> dev
