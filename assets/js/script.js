@@ -361,8 +361,17 @@ function npsSearch(campSearchInput) {
 //npsSearch('Lake Stevens'); //keyword results
 //npsSearch('Rainier'); //no results
 
+// function running search
+function runSearch() {
+    var campInput = campSearchInput.value.toUpperCase();
+        dateInput = datePickerInput.value;
+        npsSearch(campInput);
+        toggleFavRes("res");
+        campSearchInput.value = '';
+}
 
 // Event listeners and page load calls
+    // favorite btns event listeners
 campFavBtn.addEventListener("click", handlerFavoritesClick);
 resultsUl.addEventListener("click", handlerCardClick);
 favoritesUl.addEventListener("click", handlerCardClick);
@@ -376,6 +385,21 @@ toggleDiv.addEventListener("click", function(event) {
     if (event.target.matches("#fav-toggle")) { toggleFavRes("fav") }
     else { toggleFavRes("res") };
 });
+
+    // search event listeners
+searchBtn.addEventListener('click', runSearch);
+campSearchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        runSearch();
+    }
+});
+datePickerInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        runSearch();
+    }
+});
+
+    // page load calls
 retrieveFavorites();
 datePickerInput.value = dayjs().format("MM/DD/YYYY")
 
