@@ -109,9 +109,10 @@ button#fav-toggle span, button#res-toggle span {
 
 }
 
-/* .columns.container {
-  background: red;
-} */
+.about img {
+  height: auto;
+  width: 25rem;
+}
 
 .checked span.icon {
   color: var(--highlight);

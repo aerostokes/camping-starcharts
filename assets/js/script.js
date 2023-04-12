@@ -363,6 +363,9 @@ function npsSearch(campSearchInput) {
 
 // function running search
 function runSearch() {
+    if (window.innerWidth<768) {
+        searchSection.classList.add("is-hidden")
+    }
     var campInput = campSearchInput.value.toUpperCase();
         dateInput = datePickerInput.value;
         npsSearch(campInput);
