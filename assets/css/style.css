@@ -77,6 +77,38 @@ input {
   transition: all .35s ease;
 }
 
+label,
+.card,
+button {
+  font-family: Quicksand, sans-serif;
+}
+
+label {
+  font-weight: 500;
+}
+
+#search-btn {
+  font-weight: 500;
+}
+
+.card h3 {
+  font-weight: 400;
+}
+
+.about h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
+}
+
+#camp h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
+}
+
+#info {
+  font-family: Quicksand, sans-serif;
+}
+
 #search-btn:hover {
   background-color: var(--accent-dark);
   color: var(--light-color)
@@ -155,7 +187,7 @@ button.fav-btn-unchecked:hover {
 
 #camp h2 {
   font-size: 250%;
-  padding: 10px;
+  padding: 20px;
 }
 
 #info h3 {
@@ -207,7 +239,6 @@ aside ul li {
   display: block;
   justify-content: center;
   font-size: 250%;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-variant: small-caps;
 }
 
