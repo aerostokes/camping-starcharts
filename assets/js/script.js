@@ -335,6 +335,21 @@ toggleDiv.addEventListener("click", function(event) {
     if (event.target.matches("#fav-toggle")) { toggleFavRes("fav") }
     else { toggleFavRes("res") };
 });
+hamBtn.addEventListener("click",function(){
+    if (searchSection.classList.contains("is-hidden")) {
+        searchSection.classList.remove("is-hidden");
+    } else {
+        searchSection.classList.add("is-hidden");
+    }
+})
+
+
+toggleDiv.addEventListener("click", handlerToggleClick);
+
+
+
+
+
 retrieveFavorites();
 
 chartMaker(45.66,12.34,"2020-06-07");
