@@ -316,8 +316,8 @@ aside ul li {
 
 /* 768px */
 @media screen and (max-width: 768px) {
-  h1 {
-    font-size: 75%;
+  header img {
+    width: 250px;
   }
   #ham-btn {
     display: inline;
