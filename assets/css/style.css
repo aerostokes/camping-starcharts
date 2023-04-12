@@ -28,6 +28,7 @@ header {
 }
 
 body, html {
+  background-color: #0a0a0a;
   background-image: url(../images/starry-bg.png);
   height: 100%;
   background-size: fill;
@@ -77,6 +78,38 @@ input {
   transition: all .35s ease;
 }
 
+label,
+.card,
+button {
+  font-family: Quicksand, sans-serif;
+}
+
+label {
+  font-weight: 500;
+}
+
+#search-btn {
+  font-weight: 500;
+}
+
+.card h3 {
+  font-weight: 400;
+}
+
+.about h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
+}
+
+#camp h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
+}
+
+#info {
+  font-family: Quicksand, sans-serif;
+}
+
 #search-btn:hover {
   background-color: var(--accent-dark);
   color: var(--light-color)
@@ -109,9 +142,10 @@ button#fav-toggle span, button#res-toggle span {
 
 }
 
-/* .columns.container {
-  background: red;
-} */
+.about img {
+  height: auto;
+  width: 25rem;
+}
 
 .checked span.icon {
   color: var(--highlight);
@@ -154,7 +188,7 @@ button.fav-btn-unchecked:hover {
 
 #camp h2 {
   font-size: 250%;
-  padding: 10px;
+  padding: 20px;
 }
 
 #info h3 {
@@ -192,7 +226,7 @@ button.fav-btn-unchecked:hover {
 aside ul li {
   list-style-type: none;
 }
-  
+
 .about {
   background-color: var(--dark-color);
   color: var(--light-color);
@@ -206,7 +240,6 @@ aside ul li {
   display: block;
   justify-content: center;
   font-size: 250%;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   font-variant: small-caps;
 }
 
@@ -218,50 +251,50 @@ aside ul li {
   padding: 3%;
   font-size: 100%;
 }
-  /* Gives the body element a parent height to compare against
-  html {
-    height: 100%;
-  }
-  
-  body {
-    min-height: 100%;
-    line-height: 1;
-    font-family: sans-serif;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-size: 100%;
-  } */
-  
-  /* Matches the font of special elements to the rest of the page */
-  /* input, select, option, optgroup, textarea, button,
-  pre, code {
-    font-size: 100%;
-    font-family: inherit;
-  }
-  
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+/* Gives the body element a parent height to compare against
+html {
+  height: 100%;
 }
 
-/* .fav-label {
-  position: relative;
+body {
+  min-height: 100%;
+  line-height: 1;
+  font-family: sans-serif;
 }
 
-#fav-btn {
-  position: absolute;
-  opacity:0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+} */
 
-.fav-star {
-  position: absolute;
+/* Matches the font of special elements to the rest of the page */
+/* input, select, option, optgroup, textarea, button,
+pre, code {
+  font-size: 100%;
+  font-family: inherit;
+  }
+  
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  /* .fav-label {
+    position: relative;
+  }
+  
+  #fav-btn {
+    position: absolute;
+    opacity:0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .fav-star {
+    position: absolute;
   top: 0;
   left: 0;
 } */
@@ -278,6 +311,13 @@ aside ul li {
 
 .fav-btn-checked span, .fav-btn-unchecked span {
   pointer-events: none;
+}
+
+header,
+.about,
+#camp,
+.search {
+  background: rgba(0,0,0,70%);
 }
 
 .fav-btn-checked span {
@@ -317,14 +357,14 @@ aside ul li {
 
 /* 768px */
 @media screen and (max-width: 768px) {
-  h1 {
-    font-size: 75%;
+  header img {
+    width: 250px;
   }
   #ham-btn {
     display: inline;
     position: absolute;
-    top: 15%;
-    right: 5%;
+    color: var(--highlight);
+    top: 20px;
   }
   #info span.icon span {
     margin-top: 20px;
