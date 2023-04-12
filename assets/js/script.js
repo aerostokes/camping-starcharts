@@ -17,8 +17,9 @@ var campURL = document.getElementById("camp-url");
 var infoListUl = document.getElementById("info-list");
 var aboutSection = document.querySelector(".about");
 var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FM', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MH', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 'OR', 'PW', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VI', 'VA', 'WA', 'WV', 'WI', 'WY' ];
-var campResultsArr = []
-var favArr = []
+var campResultsArr = [{name: "Camp Name 1", nameCode: "name-1234"}, {name: "Camp Name 2", nameCode: "name-5678"}]
+var displayedFavsArr = []
+var storedFavsArr = []
 
 
 // On page load, populate favorites from localStorage (if any)
@@ -49,79 +50,144 @@ var favArr = []
     // If unchecking the box, remove from localStorage
 // ---------------------------------------------------------------
 
-// Function to save camp to localStorage 
-function saveFavorite(clickedParent) {
-    // Read campName and parkcode from page
-    var campNameStr;
-    if (clickedParent.matches("li")) { campNameStr = clickedParent.querySelector("h3").textContent }
-    else { campNameStr = clickedParent.querySelector("h2").textContent };
-    
-    // Pull obj from campResultsArr
-    var getObj = campResultsArr.find(obj => obj.name == campNameStr);
-    var parkcodeStr = getObj.parkcode;
 
-    // Check if camp is already saved
-    if (!(favArr.find(obj => (obj.name == campNameStr && obj.parkcode == parkcodeStr)))) {
-        favArr.push(getObj);
-        localStorage.setItem("FavoriteCampgrounds", JSON.stringify(favArr));
-    };
-};
 
-// Function to retrieve favorites from localStorage and populate page
-function retrieveFavorites() {
-    if (localStorage.getItem("FavoriteCampgrounds")) {
-        favArr = JSON.parse(localStorage.getItem("FavoriteCampgrounds"));
-        console.log(favArr);
-        favArr.forEach(element => { 
-        //     var newPrior = document.createElement("li");
-        //     newPrior.textContent = element.name;
-        //     priorSearches.appendChild(newPrior);
-        
-        // writing to page
-        var favCardEl = document.createElement('li');
-        var favNameEl = document.createElement('h3');
-        var favFavBtn = document.createElement('button');
-        var favLocationEl = document.createElement('p');
-        
-        favCardEl.setAttribute("class", "card")
-        favNameEl.setAttribute("class","card-header");
-        favNameEl.textContent = element.name;
-        favFavBtn.setAttribute("class", "fav-btn-checked");
-        favFavBtn.innerHTML = "<span class='material-symbols-outlined'>star</span>";
-        favLocationEl.textContent = element.location;
-        
-        favCardEl.append(favNameEl, favFavBtn, favLocationEl);
-        favoritesUl.append(favCardEl);
+// Unfavorite and remove from localStorage
+function removeFavorite(clickedParent) {
+        // Read data-nameCode from page. Remove matching object from the storedFavsArr and updated localStorage.
+        var nameCodeStr = clickedParent.getAttribute("data-nameCode");
+        var index = storedFavsArr.findIndex(obj => obj.nameCode == nameCodeStr);
+        console.log(index);
+        storedFavsArr.splice(index, 1);
+        localStorage.setItem("FavoriteCampgrounds", JSON.stringify(storedFavsArr));
+        console.log(storedFavsArr);
+
+        // If the nameCode exists anywhere else on the page, then update favorite stars to match
+        var findMatchesArr = document.querySelectorAll(`[data-nameCode='${nameCodeStr}'`);
+        findMatchesArr.forEach(match => {
+            match.querySelector("button").setAttribute("class", "fav-btn-unchecked");
         });
-    };
 };
 
-// Handler for if user clicks on a favorite button (either from the result cards or from the campSection)
-function handlerFavoritesClick(event) {
-    var clickedButton = event.target;
-    if (clickedButton.getAttribute("class") == "fav-btn-checked") {
-        clickedButton.setAttribute("class", "fav-btn-unchecked");
-        // TODO: deleted favorite
+
+// Save camp to localStorage 
+function saveFavorite(clickedParent) {
+    // Read data-nameCode from page. Pull the matching campObj from campResultsArr.
+    var nameCodeStr = clickedParent.getAttribute("data-namecode")
+    var campObj = campResultsArr.find(obj => obj.nameCode == nameCodeStr);
+    console.log(campObj);
+    if (campObj == null) { campObj = displayedFavsArr.find(obj=> obj.nameCode == nameCodeStr)};
+    console.log(campObj);
+
+    // If camp is not already in localStorage add it.
+    if (!(storedFavsArr.find(obj => obj.nameCode == nameCodeStr))) {
+        storedFavsArr.push(campObj);
+        localStorage.setItem("FavoriteCampgrounds", JSON.stringify(storedFavsArr));
+    };
+
+    // If camp is not already in favoritesUl, then add it.
+    var findMatch = favoritesUl.querySelector(`li[data-nameCode='${nameCodeStr}'`);
+    if (!findMatch) {
+        displayedFavsArr.push(campObj);
+        createCard (campObj, "fav");
+    };
+
+    // If the nameCode exists anywhere else on the page, then update favorite stars to match
+    var findMatchesArr = document.querySelectorAll(`[data-nameCode='${nameCodeStr}'`);
+    findMatchesArr.forEach(match => {
+        match.querySelector("button").setAttribute("class", "fav-btn-checked");
+    });
+};
+
+// Create a card for either resultsUl or favoritesUl 
+function createCard (campObj, cardType = "result") {
+    var cardEl = document.createElement('li');
+    var nameEl = document.createElement('h3');
+    var locationEl = document.createElement('p');
+    var favBtn = document.createElement('button');
+
+    cardEl.setAttribute("class", "card");
+    cardEl.setAttribute("data-namecode", campObj.nameCode);
+    nameEl.setAttribute("class","card-header");
+    nameEl.textContent = campObj.name;
+    locationEl.textContent = campObj.location;
+    
+    cardEl.append(nameEl, favBtn, locationEl);
+    favBtn.innerHTML = "<span class='material-symbols-outlined'>star</span>";
+    if (cardType == "fav") {
+        favBtn.setAttribute("class", "fav-btn-checked");
+        favoritesUl.append(cardEl);
     }
     else {
-        clickedButton.setAttribute("class", "fav-btn-checked");
-        var clickedParent = clickedButton.parentElement
+        resultsUl.append(cardEl);
+
+        // Check if nameCode is already in favoritesUl, then set the new card's favororite star to match. 
+        if (favoritesUl.querySelector(`li[data-nameCode='${campObj.nameCode}'`)) {
+            favBtn.setAttribute("class", "fav-btn-checked");
+        }
+        else {
+            favBtn.setAttribute("class", "fav-btn-unchecked");
+        };
+    };  
+};
+
+// Retrieve favorites from localStorage and populate page
+function retrieveFavorites() {
+    if (localStorage.getItem("FavoriteCampgrounds")) {
+        storedFavsArr = JSON.parse(localStorage.getItem("FavoriteCampgrounds"));
+        storedFavsArr.forEach(campObj => { createCard(campObj, "fav") });
+        displayedFavsArr = storedFavsArr.slice();
+        console.log(storedFavsArr);
+        console.log(displayedFavsArr);
+    };
+};
+
+// Handler for if user clicks on a favorite button (either from the cards or from the campSection)
+function handlerFavoritesClick(event) {
+    var clickedButton = event.target;
+    var clickedParent = clickedButton.parentElement;
+    if (clickedButton.getAttribute("class") == "fav-btn-checked") {
+        removeFavorite(clickedParent);
+    }
+    else {
         saveFavorite(clickedParent);
     };
 };
 
-// Handler for if user clicks anywhere in resultsUl 
-function handlerResultsClick (event) {
+
+// Handler for if user clicks anywhere in resultsUl or favoritesUl
+function handlerCardClick (event) {
     var clickedEl = event.target;
     if (clickedEl.matches("button")) {
         handlerFavoritesClick(event);
     }
     else if (clickedEl.parentElement.matches("li")) {
-        // TODO: populate campSection with the info for this card 
+// TODO: populate campSection with the info for this card 
         console.log(clickedEl.parentElement);
     };
 };
 
+
+// chartMaker(lat,lon,date);
+function chartMaker(lat, lon, date) {
+    // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
+    // Can change it to a different constellation, or perspective.
+    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+    fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
+         headers: {
+            Authorization: `Basic ${astroAPIkey}`
+        },
+        method: "POST",
+        body: specs
+    }).then(function(response){
+        console.log(response);
+        return response.json();
+    }).then(function(data){
+        console.log(data);
+        console.log(data.data.imageUrl);
+        chartImg.setAttribute("src",data.data.imageUrl);
+    })
+}
 
 
 // function to pull specific data from nps response
@@ -158,7 +224,7 @@ function npsResponse(campground){
     // object to hold necessary info for each camp 
     var campObj = {
         name: name,
-        parkcode: parkcode,
+        nameCode: name + "-" + parkcode,
         latitude: lat,
         longitude: lon,
         location: location,
@@ -167,28 +233,10 @@ function npsResponse(campground){
         description: description,
         url: siteUrl,
     }
-    console.log(campObj);
 
     campResultsArr.push(campObj);
-
-    // writing to page
-    var resultCardEl = document.createElement('li');
-    var resultNameEl = document.createElement('h3');
-    var resultFav = document.createElement('button')
-    var resultLocationEl = document.createElement('p');
-
-    resultCardEl.setAttribute("class", "card");
-    resultNameEl.setAttribute("class","card-header");
-    resultNameEl.textContent = name;
-    resultFav.setAttribute("class", "fav-btn-unchecked");
-    resultFav.innerHTML = "<span class='material-symbols-outlined'>star</span>";
-    resultLocationEl.textContent = location;
-                
-    resultCardEl.append(resultNameEl, resultFav, resultLocationEl);
-    resultsUl.append(resultCardEl);
-
+    createCard (campObj, "result");
 }
-
 
 
 // function for sending requests and recieving responses for the NPS API
@@ -242,29 +290,13 @@ function npsSearch(campSearchInput) {
 //npsSearch('Lake Stevens'); //keyword results
 //npsSearch('Rainier'); //no results
 
-    
-// chartMaker(lat,lon,date);
-function chartMaker(lat, lon, date) {
-    // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
-    // Can change it to a different constellation, or perspective.
-    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
-    fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
-         headers: {
-            Authorization: `Basic ${astroAPIkey}`
-        },
-        method: "POST",
-        body: specs
-    }).then(function(response){
-        console.log(response);
-        return response.json();
-    }).then(function(data){
-        console.log(data);
-        console.log(data.data.imageUrl);
-        chartImg.setAttribute("src",data.data.imageUrl);
-    })
-}
 
-    // Event Listeners and page load 
-    campFavBtn.addEventListener("click", handlerFavoritesClick);
-    resultsUl.addEventListener("click", handlerResultsClick);
-    retrieveFavorites();
+// Event listeners and page load calls
+campFavBtn.addEventListener("click", handlerFavoritesClick);
+resultsUl.addEventListener("click", handlerCardClick);
+favoritesUl.addEventListener("click", handlerCardClick);
+retrieveFavorites();
+
+
+
+
