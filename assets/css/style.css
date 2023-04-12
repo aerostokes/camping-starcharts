@@ -8,11 +8,10 @@
     --highlight: #F0F287;
 }   
 
- * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 } 
 
 header {
@@ -25,12 +24,18 @@ header {
   border-radius: 38px;
   margin: 1%;
   background-color: var(--dark-color);
+  z-index: 0;
 }
 
 body, html {
   background-image: url(../images/starry-bg.png);
   height: 100%;
   background-size: fill;
+}
+
+main {
+  display: flex;
+  align-items: center;
 }
 
 .search {
@@ -83,11 +88,12 @@ input {
   justify-content: space-around;
 }
 
-button#fav-toggle, button#res-toggle { 
+button#fav-toggle,
+button#res-toggle { 
   width: 45%;
   background-color: var(--dark-color);
   color: var(--light-color);
-  font-size: 24px;
+  font-size: 22px;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -103,13 +109,14 @@ button#fav-toggle span, button#res-toggle span {
 
 }
 
+/* .columns.container {
+  background: red;
+} */
 
 .checked span.icon {
   color: var(--highlight);
   font-variation-settings: 'FILL' 100;
 }
-
-
 
 .card {
   margin: 2% .5%;
@@ -167,8 +174,18 @@ button.fav-btn-unchecked:hover {
   padding-left: 10px;
 }
 
-#camp img {
+#info .icon-text {
+  justify-content: end;
+}
+
+.chart-container {
   margin: 10px;
+  margin-bottom: 0;
+}
+
+#ham-btn {
+  display: none;
+  font-size: 48px;
 }
 
 aside ul li {
@@ -265,4 +282,52 @@ aside ul li {
 .fav-btn-checked span {
   font-variation-settings: 'FILL' 100;
   color: var(--highlight-color);
+}
+
+#info {
+  padding-bottom: 20px;
+}
+
+@media screen and (max-width: 1216px) {
+  #toggle-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  button#fav-toggle,
+  button#res-toggle {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+}
+
+/* 992px */
+@media screen and (max-width: 1024px) {
+  #camp h2 {
+    font-size: 28px;
+  }
+  #camp span.icon button span {
+    font-size: 30px;
+  }
+  #info-list,
+  #info h3 {
+    padding-left: 20px;
+  }
+}
+
+/* 768px */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 75%;
+  }
+  #ham-btn {
+    display: inline;
+    position: absolute;
+    top: 15%;
+    right: 5%;
+  }
+  #info span.icon span {
+    margin-top: 20px;
+    padding: 0px;
+    padding-left: 10px;
+  }
 }
