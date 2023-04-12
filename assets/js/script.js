@@ -5,7 +5,9 @@ var searchSection = document.querySelector(".search");
 var campSearchInput = document.getElementById("camp-search");
 var datePickerInput = document.getElementById("datepicker");
 var searchBtn = document.getElementById("search-btn");
+var dateInput = '';var toggleDiv = document.getElementById("toggle-container")
 var favToggleBtn = document.getElementById("fav-toggle");
+var resToggleBtn = document.getElementById("res-toggle")
 var favoritesUl = document.getElementById("favorites");
 var resultsUl = document.getElementById("results");
 var campSection = document.getElementById("camp");
@@ -20,7 +22,9 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 var campResultsArr = [];
 var displayedFavsArr = []
 var storedFavsArr = []
-var dateInput = '';
+
+
+
 
 
 // On page load, populate favorites from localStorage (if any)
@@ -175,6 +179,22 @@ function handlerCardClick (event) {
     };
 };
 
+function handlerToggleClick(event) {
+    if (event.target.matches("#fav-toggle")) {
+        favToggleBtn.setAttribute("class", "checked");
+        favoritesUl.removeAttribute("class")
+
+        resToggleBtn.setAttribute("class", "unchecked");
+        resultsUl.setAttribute("class", "is-hidden")
+    }
+    else {
+        favToggleBtn.setAttribute("class", "unchecked");
+        favoritesUl.setAttribute("class", "is-hidden");
+
+        resToggleBtn.setAttribute("class", "checked");
+        resultsUl.removeAttribute("class");
+    }
+};
     
 function chartMaker(lat, lon, date) {
     // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
@@ -308,6 +328,14 @@ searchBtn.addEventListener('click', function() {
     dateInput = datePickerInput.value;
     npsSearch(campInput);
 });
+
+
+toggleDiv.addEventListener("click", handlerToggleClick);
+
+
+
+
+
 retrieveFavorites();
 
 chartMaker(45.66,12.34,"2020-06-07");
