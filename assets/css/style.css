@@ -1,0 +1,334 @@
+/* Resets the box size of every element */
+:root {
+    --dark-color: #0a0a0a;
+    --light-color: #FFFFFF;
+    --accent-dark: #252859;
+    --accent-light: #4C48D9;
+    --accent-ultra-light: #AD8DF2;
+    --highlight: #F0F287;
+}   
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+} 
+
+header {
+  font-size: 400%;
+  font-variant: small-caps;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  display: flex;
+  justify-content: center;
+  border: 3px solid var(--accent-light);
+  border-radius: 38px;
+  margin: 1%;
+  background-color: var(--dark-color);
+  z-index: 0;
+}
+
+body, html {
+  background-image: url(../images/starry-bg.png);
+  height: 100%;
+  background-size: fill;
+}
+
+main {
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  border: 2px solid var(--highlight);
+  border-radius: 20px;
+  padding: 5%;
+  display: flexbox;
+  
+}
+
+.field {
+  display: block;
+  font-size: 175%;
+  font-weight: bold;
+  font-variant: small-caps;
+}
+
+input {
+  width: 100%;
+  padding: 2%;
+  border-radius: 30px;
+}
+
+#search-btn {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 2%;
+  border-style: none;
+  border-radius: 20px;
+  background-color: var(--highlight);
+  color: var(--dark-color);
+  transition: all .35s ease;
+}
+
+#search-btn:hover {
+  background-color: var(--accent-dark);
+  color: var(--light-color)
+}
+
+#toggle-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+button#fav-toggle,
+button#res-toggle { 
+  width: 45%;
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  font-size: 22px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: 3px solid var(--accent-light);
+  border-radius: 12px;
+  justify-content: center;
+}
+
+button#fav-toggle span, button#res-toggle span {
+  pointer-events: none;
+  text-align: center;
+  transform: translateX(-5%);
+
+}
+
+/* .columns.container {
+  background: red;
+} */
+
+.checked span.icon {
+  color: var(--highlight);
+  font-variation-settings: 'FILL' 100;
+}
+
+.card {
+  margin: 2% .5%;
+  background-color: var(--accent-dark);
+  border: 2px solid var(--accent-ultra-light);
+  color: var(--light-color);
+  padding: 5px;
+}
+
+.card:hover {
+  transform: scale(1.025,1.025);
+  transition: all .25s ease;
+}
+.card h3{
+  font-size: 20px;
+  pointer-events: none;
+}
+
+button.fav-btn-unchecked {
+  color: var(--accent-ultra-light);
+  transition: all .35s ease;
+}
+
+button.fav-btn-checked,
+button.fav-btn-unchecked:hover {
+  color: var(--highlight);
+}
+
+#camp {
+  background-color: var(--dark-color);
+  border: 3px solid var(--accent-ultra-light);
+  border-radius: 20px;
+  color: var(--light-color);
+}
+
+#camp h2 {
+  font-size: 250%;
+  padding: 10px;
+}
+
+#info h3 {
+  font-size: 175%;
+}
+
+#camp span.icon button span {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 40px;
+  font-variation-settings: 'PSZ' 48;
+}
+
+#info span.icon span {
+  text-align: center;
+  margin-top: 15px;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+#info .icon-text {
+  justify-content: end;
+}
+
+.chart-container {
+  margin: 10px;
+  margin-bottom: 0;
+}
+
+#ham-btn {
+  display: none;
+  font-size: 48px;
+}
+
+aside ul li {
+  list-style-type: none;
+}
+  
+.about {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  border: 3px solid var(--accent-ultra-light);
+  border-radius: 20px;
+  text-align: center;
+}
+
+.about h2 {
+  padding: 2%;
+  display: block;
+  justify-content: center;
+  font-size: 250%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-variant: small-caps;
+}
+
+.about img {
+  padding: 0 3%;
+}
+
+.about p {
+  padding: 3%;
+  font-size: 100%;
+}
+  /* Gives the body element a parent height to compare against
+  html {
+    height: 100%;
+  }
+  
+  body {
+    min-height: 100%;
+    line-height: 1;
+    font-family: sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+  } */
+  
+  /* Matches the font of special elements to the rest of the page */
+  /* input, select, option, optgroup, textarea, button,
+  pre, code {
+    font-size: 100%;
+    font-family: inherit;
+  }
+  
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+/* .fav-label {
+  position: relative;
+}
+
+#fav-btn {
+  position: absolute;
+  opacity:0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.fav-star {
+  position: absolute;
+  top: 0;
+  left: 0;
+} */
+
+#camp-name {
+  display: inline;
+}
+
+.fav-btn-unchecked, .fav-btn-checked {
+  border: 0px;
+  background-color: #00000000;
+  display: inline;
+}
+
+.fav-btn-checked span, .fav-btn-unchecked span {
+  pointer-events: none;
+}
+
+.fav-btn-checked span {
+  font-variation-settings: 'FILL' 100;
+  color: var(--highlight-color);
+}
+
+#info {
+  padding-bottom: 20px;
+}
+
+@media screen and (max-width: 1216px) {
+  #toggle-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  button#fav-toggle,
+  button#res-toggle {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+}
+
+/* 992px */
+@media screen and (max-width: 1024px) {
+  #camp h2 {
+    font-size: 28px;
+  }
+  #camp span.icon button span {
+    font-size: 30px;
+  }
+  #info-list,
+  #info h3 {
+    padding-left: 20px;
+  }
+}
+
+/* 768px */
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 75%;
+  }
+  #ham-btn {
+    display: inline;
+    position: absolute;
+    top: 15%;
+    right: 5%;
+  }
+  #info span.icon span {
+    margin-top: 20px;
+    padding: 0px;
+    padding-left: 10px;
+  }
+}
