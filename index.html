@@ -21,25 +21,27 @@
             <span id="ham-btn" class="material-symbols-outlined">menu</span>
         </div>
     </header>
-    <div class="columns container is-fluid">
-        <div class="column is-half is-one-third-desktop">
-            <section class="search">
-                        <div class="field">
-                            <label>Campground Name</label>
-                            <div class="control">
-                                <input id="camp-search" type="text" placeholder="Enter a campground name or state code">
-                            </div>
+    <main>
+
+        <div class="columns container is-fluid">
+            <div class="column is-half is-one-third-desktop">
+                <section class="search">
+                    <div class="field">
+                        <label>Campground Name</label>
+                        <div class="control">
+                            <input id="camp-search" type="text" placeholder="Enter a campground name or state code">
                         </div>
-                        <div class="field">
-                            <label>Date</label>
-                            <div class="control">
-                                <input id="datepicker" type="text" class="datepicker" placeholder="Select a date">
-                            </div>
+                    </div>
+                    <div class="field">
+                        <label>Date</label>
+                        <div class="control">
+                            <input id="datepicker" type="text" class="datepicker" placeholder="Select a date">
+                        </div>
                         </div>
                         <div class="field">
                             <button id="search-btn">Search</button>
                         </div>
-
+                        
                         <div id="toggle-container">
                             <button id="fav-toggle" class="checked">
                                 <span class="icon-text">
@@ -73,47 +75,48 @@
                         </ul>
                     </section>
                 </div>
-        
-        <div class="column">
-            <section id="camp">
-                <span class="icon-text">
-                    <h2 id="camp-name">Campground Name</h2>
-                    <span class="icon is-medium">
-                        <button id="camp-fav-btn" class="fav-btn-unchecked"  data-nameCode="name-f1234"><span class="material-symbols-outlined">star</span></button>
-                    </span>
-                </span>
-                <div class="columns is-fluid is-desktop">
-                    <div class="column">
-                        <img id="chart" src="" alt="star chart">
-                    </div>
-                    <aside id="info" class="column">
+                
+                <div class="column">
+                    <section id="camp">
                         <span class="icon-text">
-                            <h3>Campground Info</h3>
-                            <span class="icon is-small">
-                                <a id="camp-url" href=""><span class="material-symbols-outlined">open_in_new</span></a>
+                            <h2 id="camp-name">Campground Name</h2>
+                            <span class="icon is-medium">
+                                <button id="camp-fav-btn" class="fav-btn-unchecked"  data-nameCode="name-f1234"><span class="material-symbols-outlined">star</span></button>
                             </span>
                         </span>
-                        <ul id="info-list">
-                            <li>1</li>
-                            <li>2</li>
-                            <li>3</li>
-                            <li>4</li>
-                            <li>5</li>
-                            <li>6</li>
-                        </ul>
-                    </aside>
+                        <div class="columns is-fluid is-desktop">
+                            <div class="chart-container column">
+                                <img id="chart" src="" alt="star chart">
+                            </div>
+                            <aside id="info" class="column">
+                                <span class="icon-text">
+                                    <h3>Campground Info</h3>
+                                    <span class="icon is-small">
+                                        <a id="camp-url" href=""><span class="material-symbols-outlined">open_in_new</span></a>
+                                    </span>
+                                </span>
+                                <ul id="info-list">
+                                    <li>1</li>
+                                    <li>2</li>
+                                    <li>3</li>
+                                    <li>4</li>
+                                    <li>5</li>
+                                    <li>6</li>
+                                </ul>
+                            </aside>
+                        </div>
+                    </section>
                 </div>
-            </section>
-        </div>
-        
-        <div class="column is-hidden">
-            <section class="about">
-                <h2>About</h2>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor deleniti repudiandae, veniam tenetur mollitia voluptatum vel quos? Fugit saepe quia aperiam eligendi molestias, culpa incidunt accusantium omnis, similique, nostrum laudantium!</p>
-            </section>
-        </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+                
+                <div class="column is-hidden">
+                    <section class="about">
+                        <h2>About</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolor deleniti repudiandae, veniam tenetur mollitia voluptatum vel quos? Fugit saepe quia aperiam eligendi molestias, culpa incidunt accusantium omnis, similique, nostrum laudantium!</p>
+                    </section>
+                </div>
+            </div>
+        </main>
+            <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>

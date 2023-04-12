@@ -33,6 +33,11 @@ body, html {
   background-size: fill;
 }
 
+main {
+  display: flex;
+  align-items: center;
+}
+
 .search {
   background-color: var(--dark-color);
   color: var(--light-color);
@@ -104,6 +109,10 @@ button#fav-toggle span, button#res-toggle span {
 
 }
 
+/* .columns.container {
+  background: red;
+} */
+
 .checked span.icon {
   color: var(--highlight);
   font-variation-settings: 'FILL' 100;
@@ -165,8 +174,13 @@ button.fav-btn-unchecked:hover {
   padding-left: 10px;
 }
 
-#camp img {
+#info .icon-text {
+  justify-content: end;
+}
+
+.chart-container {
   margin: 10px;
+  margin-bottom: 0;
 }
 
 #ham-btn {
@@ -197,6 +211,10 @@ aside ul li {
   color: var(--highlight-color);
 }
 
+#info {
+  padding-bottom: 20px;
+}
+
 @media screen and (max-width: 1216px) {
   #toggle-container {
     flex-direction: column;
@@ -207,17 +225,20 @@ aside ul li {
     width: 90%;
     margin-bottom: 10px;
   }
-  /* .card h3 {
-    font-size: 16px;
-    color: red;
-  }
-  .card p {
-    font-size: 12px;
-  } */
 }
 
 /* 992px */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1024px) {
+  #camp h2 {
+    font-size: 28px;
+  }
+  #camp span.icon button span {
+    font-size: 30px;
+  }
+  #info-list,
+  #info h3 {
+    padding-left: 20px;
+  }
 }
 
 /* 768px */
@@ -231,6 +252,9 @@ aside ul li {
     top: 15%;
     right: 5%;
   }
+  #info span.icon span {
+    margin-top: 20px;
+    padding: 0px;
+    padding-left: 10px;
+  }
 }
-
-/* 576px */
