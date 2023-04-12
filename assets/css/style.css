@@ -8,11 +8,10 @@
     --highlight: #F0F287;
 }   
 
- * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 } 
 
 header {
@@ -84,11 +83,12 @@ input {
   justify-content: space-around;
 }
 
-button#fav-toggle, button#res-toggle { 
+button#fav-toggle,
+button#res-toggle { 
   width: 45%;
   background-color: var(--dark-color);
   color: var(--light-color);
-  font-size: 24px;
+  font-size: 22px;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -104,13 +104,10 @@ button#fav-toggle span, button#res-toggle span {
 
 }
 
-
 .checked span.icon {
   color: var(--highlight);
   font-variation-settings: 'FILL' 100;
 }
-
-
 
 .card {
   margin: 2% .5%;
@@ -200,16 +197,20 @@ aside ul li {
   color: var(--highlight-color);
 }
 
-/* 992px */
-@media screen and (max-width: 992px) {
+@media screen and (max-width: 1216px) {
   #toggle-container {
     flex-direction: column;
-    align-content: center;
+    align-items: center;
   }
   button#fav-toggle,
   button#res-toggle {
     width: 90%;
+    margin-bottom: 10px;
   }
+}
+
+/* 992px */
+@media screen and (max-width: 992px) {
 }
 
 /* 768px */
