@@ -125,6 +125,7 @@ button#fav-toggle span, button#res-toggle span {
 }
 .card h3{
   font-size: 20px;
+  pointer-events: none;
 }
 
 button.fav-btn-unchecked {
