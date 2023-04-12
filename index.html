@@ -21,6 +21,20 @@
             <span id="ham-btn" class="material-symbols-outlined">menu</span>
         </div>
     </header>
+    <div class="columns container is-fluid">
+        <div class="column is-one-third">
+            <section class="search">
+                        <div class="field">
+                            <label>Campground Name</label>
+                            <div class="control">
+                                <input id="camp-search" type="text" placeholder="Enter a campground name or state code">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Date</label>
+                            <div class="control">
+                                <input id="datepicker" type="text" class="datepicker" placeholder="Select date of trip">
+                            </div>
     <main>
 
         <div class="columns container is-fluid">
@@ -76,7 +90,7 @@
                     </section>
                 </div>
                 
-                <div class="column">
+                <div class="column is-hidden">
                     <section id="camp">
                         <span class="icon-text">
                             <h2 id="camp-name">Campground Name</h2>

@@ -5,7 +5,8 @@ var searchSection = document.querySelector(".search");
 var campSearchInput = document.getElementById("camp-search");
 var datePickerInput = document.getElementById("datepicker");
 var searchBtn = document.getElementById("search-btn");
-var dateInput = '';var toggleDiv = document.getElementById("toggle-container")
+var dateInput = '';
+var toggleDiv = document.getElementById("toggle-container");
 var favToggleBtn = document.getElementById("fav-toggle");
 var resToggleBtn = document.getElementById("res-toggle")
 var favoritesUl = document.getElementById("favorites");
@@ -179,8 +180,9 @@ function handlerCardClick (event) {
     };
 };
 
-function handlerToggleClick(event) {
-    if (event.target.matches("#fav-toggle")) {
+
+function toggleFavRes(mode = "res") {
+    if (mode == "fav") {
         favToggleBtn.setAttribute("class", "checked");
         favoritesUl.removeAttribute("class")
 
@@ -195,6 +197,7 @@ function handlerToggleClick(event) {
         resultsUl.removeAttribute("class");
     }
 };
+
     
 function chartMaker(lat, lon, date) {
     // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
@@ -215,7 +218,6 @@ function chartMaker(lat, lon, date) {
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
-
 
 
 // function to pull specific data from nps response
@@ -327,6 +329,11 @@ searchBtn.addEventListener('click', function() {
     var campInput = campSearchInput.value.toUpperCase();
     dateInput = datePickerInput.value;
     npsSearch(campInput);
+    toggleFavRes("res")
+});
+toggleDiv.addEventListener("click", function(event) {
+    if (event.target.matches("#fav-toggle")) { toggleFavRes("fav") }
+    else { toggleFavRes("res") };
 });
 hamBtn.addEventListener("click",function(){
     if (searchSection.classList.contains("is-hidden")) {
