@@ -5,7 +5,6 @@ var searchSection = document.querySelector(".search");
 var campSearchInput = document.getElementById("camp-search");
 var datePickerInput = document.getElementById("datepicker");
 var searchBtn = document.getElementById("search-btn");
-var dateInput = '';
 var toggleDiv = document.getElementById("toggle-container");
 var favToggleBtn = document.getElementById("fav-toggle");
 var resToggleBtn = document.getElementById("res-toggle")
@@ -59,7 +58,7 @@ var storedFavsArr = []
 $( function() {
     $('#datepicker').datepicker({
       changeMonth: true,
-      changeYear: true
+      changeYear: true,
     });
 } );
 
@@ -171,13 +170,55 @@ function handlerFavoritesClick(event) {
 // Handler for if user clicks anywhere in resultsUl or favoritesUl
 function handlerCardClick (event) {
     var clickedEl = event.target;
+    var clickedLi
     if (clickedEl.matches("button")) {
         handlerFavoritesClick(event);
     }
-    else if (clickedEl.parentElement.matches("li")) {
-// TODO: populate campSection with the info for this card 
-        console.log(clickedEl.parentElement);
+    else {
+        if (clickedEl.matches("li"))  { 
+            clickedLi = clickedEl
+        } 
+        else if (clickedEl.parentElement.matches("li")) { 
+            clickedLi = clickedEl.parentElement
+        }
+        else { return };
+        var nameCodeStr = clickedLi.querySelector("button").getAttribute("data-nameCode")
+        displayCampDetails (nameCodeStr);
     };
+};
+
+
+function displayCampDetails (nameCodeStr) {
+    aboutSection.parentElement.classList.add("is-hidden")
+    campSection.parentElement.classList.remove("is-hidden")
+
+    var campObj = campResultsArr.find(obj => obj.nameCode == nameCodeStr);
+    if (campObj == null) { campObj = displayedFavsArr.find(obj=> obj.nameCode == nameCodeStr)};
+
+    if (!datePickerInput.value) { datePickerInput.value = dayjs().format("MM/DD/YYYY") }
+    chartMaker(campObj.latitude, campObj.longitude, dayjs(datePickerInput.value,"MM/DD/YYYY").format("YYYY-MM-DD"));
+
+    console.log(campObj.latitude);
+    console.log(campObj.longitude);
+    console.log(datePickerInput.value);
+
+    campNameEl.textContent = campObj.name;
+
+    campURL.setAttribute("href", campObj.url);
+    console.log(campObj);
+
+    do {
+        infoListUl.removeChild(infoListUl.firstChild);
+    } while (infoListUl.firstChild);
+    ["location","campsites","amenities", "description"].forEach(keyName => {
+        if (campObj[keyName]) { 
+            newLi = document.createElement("li");
+            newLi.textContent = `${keyName}: ${campObj[keyName]}`;
+            infoListUl.appendChild(newLi);
+        }
+    });
+
+
 };
 
 
@@ -361,6 +402,9 @@ datePickerInput.addEventListener('keypress', function(e) {
 
     // page load calls
 retrieveFavorites();
+datePickerInput.value = dayjs().format("MM/DD/YYYY")
+
+
 
 
 
