@@ -364,7 +364,7 @@ function npsSearch(campSearchInput) {
 // function running search
 function runSearch() {
     var campInput = campSearchInput.value.toUpperCase();
-        // dateInput = datePickerInput.value;
+        dateInput = datePickerInput.value;
         npsSearch(campInput);
         toggleFavRes("res");
         campSearchInput.value = '';
