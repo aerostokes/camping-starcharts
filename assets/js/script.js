@@ -328,6 +328,13 @@ searchBtn.addEventListener('click', function() {
     dateInput = datePickerInput.value;
     npsSearch(campInput);
 });
+hamBtn.addEventListener("click",function(){
+    if (searchSection.classList.contains("is-hidden")) {
+        searchSection.classList.remove("is-hidden");
+    } else {
+        searchSection.classList.add("is-hidden");
+    }
+})
 
 
 toggleDiv.addEventListener("click", handlerToggleClick);
