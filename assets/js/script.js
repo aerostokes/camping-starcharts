@@ -57,10 +57,8 @@ function removeFavorite(clickedParent) {
         // Read data-nameCode from page. Remove matching object from the storedFavsArr and updated localStorage.
         var nameCodeStr = clickedParent.getAttribute("data-nameCode");
         var index = storedFavsArr.findIndex(obj => obj.nameCode == nameCodeStr);
-        console.log(index);
         storedFavsArr.splice(index, 1);
         localStorage.setItem("FavoriteCampgrounds", JSON.stringify(storedFavsArr));
-        console.log(storedFavsArr);
 
         // If the nameCode exists anywhere else on the page, then update favorite stars to match
         var findMatchesArr = document.querySelectorAll(`[data-nameCode='${nameCodeStr}'`);
@@ -75,9 +73,7 @@ function saveFavorite(clickedParent) {
     // Read data-nameCode from page. Pull the matching campObj from campResultsArr.
     var nameCodeStr = clickedParent.getAttribute("data-namecode")
     var campObj = campResultsArr.find(obj => obj.nameCode == nameCodeStr);
-    console.log(campObj);
     if (campObj == null) { campObj = displayedFavsArr.find(obj=> obj.nameCode == nameCodeStr)};
-    console.log(campObj);
 
     // If camp is not already in localStorage add it.
     if (!(storedFavsArr.find(obj => obj.nameCode == nameCodeStr))) {
@@ -137,8 +133,6 @@ function retrieveFavorites() {
         storedFavsArr = JSON.parse(localStorage.getItem("FavoriteCampgrounds"));
         storedFavsArr.forEach(campObj => { createCard(campObj, "fav") });
         displayedFavsArr = storedFavsArr.slice();
-        console.log(storedFavsArr);
-        console.log(displayedFavsArr);
     };
 };
 
