@@ -2,7 +2,7 @@
 
 ## 📝 Description
 
-Campricorn is a front-end application that utilizes two server-side APIs to help users find the best place to camp and stargaze. Users can input a state code or a campground name, and a date, see their list of favorite campsites, and choose a specific campground to view a star chart. Thanks in part to Bulma and a lot of custom CSS, Campricorn has a polished and responsive interface, thats easy to use. Deployed on GitHub Pages, Stargazer Campgrounds is the perfect app for anyone interested in astronomy and camping.
+Campricorn is a front-end application that utilizes two server-side APIs to help users find the best place to camp and stargaze. Users can input a state code or a campground name, and a date, see their list of favorite campsites, and choose a specific campground to view a star chart. Thanks in part to Bulma and a lot of custom CSS, Campricorn has a polished and responsive interface, thats easy to use. Deployed on GitHub Pages, Campricorn is the perfect app for anyone interested in astronomy and camping.
 
 
 ## Table of Contents
