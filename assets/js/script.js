@@ -338,6 +338,13 @@ toggleDiv.addEventListener("click", function(event) {
     if (event.target.matches("#fav-toggle")) { toggleFavRes("fav") }
     else { toggleFavRes("res") };
 });
+hamBtn.addEventListener("click",function(){
+    if (searchSection.classList.contains("is-hidden")) {
+        searchSection.classList.remove("is-hidden");
+    } else {
+        searchSection.classList.add("is-hidden");
+    }
+})
 
     // search event listeners
 searchBtn.addEventListener('click', runSearch);
