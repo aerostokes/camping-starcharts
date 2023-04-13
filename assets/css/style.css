@@ -194,8 +194,6 @@ button#res-toggle span {
 .chart-container {
   margin: 10px;
   margin-bottom: 0;
-  display: flex;
-  justify-content: center;
 }
 
 /* INFO ASIDE SECTION */
@@ -219,6 +217,21 @@ button#res-toggle span {
 
 #info ul li {
   list-style-type: none;
+  padding-top: 3px;
+}
+
+/* #info ul li:first-child {
+  padding-top: 10px;
+  color: red;
+}
+
+#info ul li:last-child {
+  color: blue;
+} */
+
+#info ul li ul {
+  padding-left: 10px;
+  padding-top: 5px;;
 }
 
 /* ABOUT SECTION STYLING */
