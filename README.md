@@ -13,7 +13,7 @@ Campricorn is a front-end application that utilizes two server-side APIs to help
 - [Technologies Used](#🛠️-technologies-used)
 - [Resources](#📚-resources)
 - [User Experience](#-🤳-user-experience)
-    - [Screenshot](#📸-screenshot)
+    - [Screenshots](#📸-screenshots)
 - [Links](#🔗-links)
 - [Credits](#💻-credits)
 - [License](#📃-license)
@@ -52,6 +52,9 @@ THEN I am given a star chart for that campground
 <li> CSS
 <li> JavaScript
 <li> Bulma Framework
+<li> jQuery
+<li> DayJS
+<li> Google Fonts
 <li> Server Side APIs
 <li> Git Pages
 </ul>
@@ -62,11 +65,22 @@ National Park API: https://www.nps.gov/subjects/developer/api-documentation.htm
 
 Astronomy API: https://docs.astronomyapi.com/
 
-<!--
-## 🤳 User Experience
 
-### 📸 Screenshot
--->
+## 🤳 User Experience
+**Step 1:** click the the deployed application link below to get started  
+**Step 2:** input a state code or campground name (i.e. 'WA', 'Yellowstone')  
+**Step 3:** select a date you would like to see a star chart for  
+**Step 4:** click the search button (or if cursor is still in the campground name or date input boxes, you can press the enter key on your keyboard)  
+**Step 5:** select a campground from the populated results by clicking on the card its enclosed in  
+**Step 6:** view the generated chart and info about the campground
+
+***For Favorites**  
+**Step 7:** each campground has an empty star next their name that you can click on to add it to your favorites list which you can view by click the favorites button below the search button or by reloading the page  
+**Step 8:** if you want to take something off of your favorites list simply click on the filled in star and it will be removed from the list, it will still appear in the favorites list however until you reload the page incase it was unfavorited by mistake
+
+### 📸 Screenshots
+
+![desktop welcome page](./assets/images/welcomePge.png)
 
 ## 🔗 Links
 
