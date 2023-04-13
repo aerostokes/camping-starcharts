@@ -74,15 +74,19 @@ function createCard (campObj, cardType = "result") {
     var nameEl = document.createElement('h3');
     var iconSpan = document.createElement('span');
     var favBtn = document.createElement('button');
+    var favBtnSpan = document.createElement('span');
     var locationEl = document.createElement('p');
 
     cardEl.setAttribute("class", "card");
-    iconTextSpan.setAttribute("class", "icon-text")
+    iconTextSpan.setAttribute("class", "icon-text");
     nameEl.setAttribute("class","card-header");
     nameEl.textContent = campObj.name;
-    iconSpan.setAttribute("class", "icon")
+    iconSpan.setAttribute("class", "icon");
     favBtn.setAttribute("data-namecode", campObj.nameCode);
-    favBtn.innerHTML = "<span class='material-symbols-outlined'>star</span>";
+    favBtnSpan.setAttribute("class", "material-symbols-outlined");
+    favBtnSpan.textContent = "star";
+    favBtn.appendChild(favBtnSpan);
+    
     locationEl.textContent = campObj.location;
     
     iconSpan.append(favBtn)
@@ -92,15 +96,13 @@ function createCard (campObj, cardType = "result") {
     if (cardType == "fav") {
         favBtn.setAttribute("class", "fav-btn-checked");
         favoritesUl.append(cardEl);
-    }
-    else {
+    } else {
         resultsUl.append(cardEl);
 
         // Check if nameCode is already in favoritesUl, then set the new card's favororite star to match. 
         if (favoritesUl.querySelector(`[data-nameCode='${campObj.nameCode}'`)) {
             favBtn.setAttribute("class", "fav-btn-checked");
-        }
-        else {
+        } else {
             favBtn.setAttribute("class", "fav-btn-unchecked");
         };
     };  
@@ -120,8 +122,7 @@ function handlerFavoritesClick(event) {
     var clickedButton = event.target;
     if (clickedButton.getAttribute("class") == "fav-btn-checked") {
         removeFavorite(clickedButton);
-    }
-    else {
+    } else {
         saveFavorite(clickedButton);
     };
 };
@@ -133,15 +134,12 @@ function handlerCardClick (event) {
     var clickedLi
     if (clickedEl.matches("button")) {
         handlerFavoritesClick(event);
-    }
-    else {
+    } else {
         if (clickedEl.matches("li"))  { 
             clickedLi = clickedEl
-        } 
-        else if (clickedEl.parentElement.matches("li")) { 
+        } else if (clickedEl.parentElement.matches("li")) { 
             clickedLi = clickedEl.parentElement
-        }
-        else { return };
+        } else { return };
         var nameCodeStr = clickedLi.querySelector("button").getAttribute("data-nameCode")
         displayCampDetails (nameCodeStr);
     };
@@ -162,8 +160,7 @@ function displayCampDetails (nameCodeStr) {
     campFavBtn.setAttribute("data-nameCode", campObj.nameCode);
     if (storedFavsArr.find(obj => obj.nameCode == nameCodeStr)) {
         campFavBtn.setAttribute("class", "fav-btn-checked");
-    }
-    else {
+    } else {
         campFavBtn.setAttribute("class", "fav-btn-unchecked")
     };
 
@@ -219,8 +216,7 @@ function toggleFavRes(mode = "res") {
 
         resToggleBtn.setAttribute("class", "unchecked");
         resultsUl.setAttribute("class", "is-hidden")
-    }
-    else {
+    } else {
         favToggleBtn.setAttribute("class", "unchecked");
         favoritesUl.setAttribute("class", "is-hidden");
 
