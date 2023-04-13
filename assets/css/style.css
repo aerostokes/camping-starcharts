@@ -1,4 +1,4 @@
-/* Resets the box size of every element */
+/* COLOR PALETTE */
 :root {
     --dark-color: #0a0a0a;
     --light-color: #FFFFFF;
@@ -8,16 +8,40 @@
     --highlight: #F0F287;
 }   
 
+/* LAZY RESET */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 } 
 
+/* BACKGROUND STYLING */
+
+html {
+  background-color: #0a0a0a;
+  background-image: url(../images/starry-bg.png);
+  height: 100%;
+  background-size: fill;
+}
+
+header,
+.about,
+#camp,
+.search {
+  background: rgba(0,0,0,70%);
+}
+
+/* MAIN STYLING */
+
+main {
+  display: flex;
+  align-items: center;
+}
+
+/* HEADER STYLING */
+
 header {
-  font-size: 400%;
-  font-variant: small-caps;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   display: flex;
   justify-content: center;
   border: 3px solid var(--accent-light);
@@ -27,17 +51,12 @@ header {
   z-index: 0;
 }
 
-body, html {
-  background-color: #0a0a0a;
-  background-image: url(../images/starry-bg.png);
-  height: 100%;
-  background-size: fill;
+#ham-btn {
+  display: none;
+  font-size: 48px;
 }
 
-main {
-  display: flex;
-  align-items: center;
-}
+/* SEARCH SECTION STYLING */
 
 .search {
   background-color: var(--dark-color);
@@ -76,6 +95,12 @@ input {
   background-color: var(--highlight);
   color: var(--dark-color);
   transition: all .35s ease;
+  font-weight: 500;
+}
+
+#search-btn:hover {
+  background-color: var(--accent-dark);
+  color: var(--light-color)
 }
 
 label,
@@ -88,32 +113,7 @@ label {
   font-weight: 500;
 }
 
-#search-btn {
-  font-weight: 500;
-}
-
-.card h3 {
-  font-weight: 400;
-}
-
-.about h2 {
-  font-family: "Josefin Sans",sans-serif;
-  font-weight: 300;
-}
-
-#camp h2 {
-  font-family: "Josefin Sans",sans-serif;
-  font-weight: 300;
-}
-
-#info {
-  font-family: Quicksand, sans-serif;
-}
-
-#search-btn:hover {
-  background-color: var(--accent-dark);
-  color: var(--light-color)
-}
+/* TOGGLE BUTTON STYLING */
 
 #toggle-container {
   display: flex;
@@ -135,22 +135,19 @@ button#res-toggle {
   justify-content: center;
 }
 
-button#fav-toggle span, button#res-toggle span {
+button#fav-toggle span,
+button#res-toggle span {
   pointer-events: none;
   text-align: center;
   transform: translateX(-5%);
-
-}
-
-.about img {
-  height: auto;
-  width: 25rem;
 }
 
 .checked span.icon {
   color: var(--highlight);
   font-variation-settings: 'FILL' 100;
 }
+
+/* RESULT CARD STYLING */
 
 .card {
   margin: 2% .5%;
@@ -160,24 +157,18 @@ button#fav-toggle span, button#res-toggle span {
   padding: 5px;
 }
 
+.card h3 {
+  font-size: 20px;
+  font-weight: 400;
+  pointer-events: none;
+}
+
 .card:hover {
   transform: scale(1.025,1.025);
   transition: all .25s ease;
 }
-.card h3{
-  font-size: 20px;
-  pointer-events: none;
-}
 
-button.fav-btn-unchecked {
-  color: var(--accent-ultra-light);
-  transition: all .35s ease;
-}
-
-button.fav-btn-checked,
-button.fav-btn-unchecked:hover {
-  color: var(--highlight);
-}
+/* CAMPGROUND INFO SECTION */
 
 #camp {
   background-color: var(--dark-color);
@@ -189,28 +180,16 @@ button.fav-btn-unchecked:hover {
 #camp h2 {
   font-size: 250%;
   padding: 20px;
+  padding-right: 10px;
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
 }
 
-#info h3 {
-  font-size: 175%;
-}
-
+/* Campground Large Favorite Button */
 #camp span.icon button span {
   text-align: center;
-  margin-top: 15px;
+  margin-top: 25px;
   font-size: 40px;
-  font-variation-settings: 'PSZ' 48;
-}
-
-#info span.icon span {
-  text-align: center;
-  margin-top: 15px;
-  padding: 5px;
-  padding-left: 10px;
-}
-
-#info .icon-text {
-  justify-content: end;
 }
 
 .chart-container {
@@ -218,14 +197,45 @@ button.fav-btn-unchecked:hover {
   margin-bottom: 0;
 }
 
-#ham-btn {
-  display: none;
-  font-size: 48px;
+/* INFO ASIDE SECTION */
+
+#info {
+  font-family: Quicksand, sans-serif;
+  padding-bottom: 20px;
 }
 
-aside ul li {
-  list-style-type: none;
+#info h3 {
+  font-size: 175%;
+  padding-bottom: 10px;
 }
+
+/* The New Tab Icon */
+#info span.icon span {
+  text-align: center;
+  margin-top: 15px;
+  padding: 5px;
+  padding-left: 10px;
+}
+
+#info ul {
+  padding-right: 10px;
+}
+
+#info ul li {
+  list-style-type: none;
+  padding-top: 5px;
+}
+
+#info ul li:first-child {
+  border-top: 2px solid var(--light-color);
+}
+
+#info ul li+ul {
+  padding-left: 10px;
+  padding-top: 5px;;
+}
+
+/* ABOUT SECTION STYLING */
 
 .about {
   background-color: var(--dark-color);
@@ -236,6 +246,8 @@ aside ul li {
 }
 
 .about h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
   padding: 2%;
   display: block;
   justify-content: center;
@@ -244,6 +256,8 @@ aside ul li {
 }
 
 .about img {
+  height: auto;
+  width: 25rem;
   padding: 0 3%;
 }
 
@@ -251,73 +265,29 @@ aside ul li {
   padding: 3%;
   font-size: 100%;
 }
-/* Gives the body element a parent height to compare against
-html {
-  height: 100%;
+
+/* FAVORITE BUTTON STYLING */
+
+.fav-btn-unchecked {
+  color: var(--accent-ultra-light);
+  transition: all .35s ease;
 }
 
-body {
-  min-height: 100%;
-  line-height: 1;
-  font-family: sans-serif;
+.fav-btn-checked,
+.fav-btn-unchecked:hover {
+  color: var(--highlight);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-size: 100%;
-} */
-
-/* Matches the font of special elements to the rest of the page */
-/* input, select, option, optgroup, textarea, button,
-pre, code {
-  font-size: 100%;
-  font-family: inherit;
-  }
-  
-  .material-symbols-outlined {
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 400,
-    'GRAD' 0,
-    'opsz' 48
-  }
-  
-  /* .fav-label {
-    position: relative;
-  }
-  
-  #fav-btn {
-    position: absolute;
-    opacity:0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  .fav-star {
-    position: absolute;
-  top: 0;
-  left: 0;
-} */
-
-#camp-name {
-  display: inline;
-}
-
-.fav-btn-unchecked, .fav-btn-checked {
+.fav-btn-unchecked,
+.fav-btn-checked {
   border: 0px;
   background-color: #00000000;
   display: inline;
 }
 
-.fav-btn-checked span, .fav-btn-unchecked span {
+.fav-btn-checked span,
+.fav-btn-unchecked span {
   pointer-events: none;
-}
-
-header,
-.about,
-#camp,
-.search {
-  background: rgba(0,0,0,70%);
 }
 
 .fav-btn-checked span {
@@ -325,10 +295,15 @@ header,
   color: var(--highlight-color);
 }
 
-#info {
-  padding-bottom: 20px;
-}
+/**
+* SCREEN RESPONSIVENESS
+* 1216px stacks the "Results" and "Favorites" buttons on less-than-widescreen displays
+* 1024px reduces the font sizes of certain elements
+* 768px stacks all sections and shows the hamburger button
+* All our breakpoints are based off Bulma breakpoints
+*/
 
+/* Below Widescreen */
 @media screen and (max-width: 1216px) {
   #toggle-container {
     flex-direction: column;
@@ -341,7 +316,7 @@ header,
   }
 }
 
-/* 992px */
+/* Below Desktop */
 @media screen and (max-width: 1024px) {
   #camp h2 {
     font-size: 28px;
@@ -355,7 +330,7 @@ header,
   }
 }
 
-/* 768px */
+/* Mobile Screens Only */
 @media screen and (max-width: 768px) {
   header img {
     width: 250px;

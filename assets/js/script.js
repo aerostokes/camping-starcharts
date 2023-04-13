@@ -24,45 +24,6 @@ var displayedFavsArr = []
 var storedFavsArr = []
 
 
-
-
-
-// On page load, populate favorites from localStorage (if any)
-
-// Collect and store campSearchInput and datePickerInput
-
-// Fetch from NPS API using search parameters
-    // If campSearchInput exists in stateCodeArr: call function stateSearch
-    // Otherwise, call function keywordSearch
-    // function stateSearch: randomly select starting point, pull 50 results, randomly return 5 result.
-    // function keywordSearch: use q search, return top 5
-
-// With the data returned:
-    // Check for physical address to prevent errors, add placeholder text if null 
-    // Store the lat/lon of the found campsites, 
-
-// Create and append to resultsUL
-
-    
-// When user clicks on li's of resultsUl, feed lat/lon and datePickerInput to astronomy API
-    // Collect and store img URL and campground info
-
-// Update chartImg src and populate infoAside
-
-
-// If the user clicks fav-btn: 
-    // If checking the box, change the checkbox style and to "filled" and store camp-name, location, lat/lon in localStorage.
-    // If unchecking the box, remove from localStorage
-// ---------------------------------------------------------------
-
-$( function() {
-    $('#datepicker').datepicker({
-      changeMonth: true,
-      changeYear: true,
-    });
-} );
-
-
 // Unfavorite and remove from localStorage
 function removeFavorite(clickedButton) {
         // Read data-nameCode from page. Remove matching object from the storedFavsArr and updated localStorage.
@@ -113,15 +74,19 @@ function createCard (campObj, cardType = "result") {
     var nameEl = document.createElement('h3');
     var iconSpan = document.createElement('span');
     var favBtn = document.createElement('button');
+    var favBtnSpan = document.createElement('span');
     var locationEl = document.createElement('p');
 
     cardEl.setAttribute("class", "card");
-    iconTextSpan.setAttribute("class", "icon-text")
+    iconTextSpan.setAttribute("class", "icon-text");
     nameEl.setAttribute("class","card-header");
     nameEl.textContent = campObj.name;
-    iconSpan.setAttribute("class", "icon")
+    iconSpan.setAttribute("class", "icon");
     favBtn.setAttribute("data-namecode", campObj.nameCode);
-    favBtn.innerHTML = "<span class='material-symbols-outlined'>star</span>";
+    favBtnSpan.setAttribute("class", "material-symbols-outlined");
+    favBtnSpan.textContent = "star";
+    favBtn.appendChild(favBtnSpan);
+    
     locationEl.textContent = campObj.location;
     
     iconSpan.append(favBtn)
@@ -131,15 +96,13 @@ function createCard (campObj, cardType = "result") {
     if (cardType == "fav") {
         favBtn.setAttribute("class", "fav-btn-checked");
         favoritesUl.append(cardEl);
-    }
-    else {
+    } else {
         resultsUl.append(cardEl);
 
         // Check if nameCode is already in favoritesUl, then set the new card's favororite star to match. 
         if (favoritesUl.querySelector(`[data-nameCode='${campObj.nameCode}'`)) {
             favBtn.setAttribute("class", "fav-btn-checked");
-        }
-        else {
+        } else {
             favBtn.setAttribute("class", "fav-btn-unchecked");
         };
     };  
@@ -157,11 +120,9 @@ function retrieveFavorites() {
 // Handler for if user clicks on a favorite button (either from the cards or from the campSection)
 function handlerFavoritesClick(event) {
     var clickedButton = event.target;
-    // var clickedParent = clickedButton.parentElement;
     if (clickedButton.getAttribute("class") == "fav-btn-checked") {
         removeFavorite(clickedButton);
-    }
-    else {
+    } else {
         saveFavorite(clickedButton);
     };
 };
@@ -173,21 +134,18 @@ function handlerCardClick (event) {
     var clickedLi
     if (clickedEl.matches("button")) {
         handlerFavoritesClick(event);
-    }
-    else {
+    } else {
         if (clickedEl.matches("li"))  { 
             clickedLi = clickedEl
-        } 
-        else if (clickedEl.parentElement.matches("li")) { 
+        } else if (clickedEl.parentElement.matches("li")) { 
             clickedLi = clickedEl.parentElement
-        }
-        else { return };
+        } else { return };
         var nameCodeStr = clickedLi.querySelector("button").getAttribute("data-nameCode")
         displayCampDetails (nameCodeStr);
     };
 };
 
-
+// Populate the page with details from the campObj 
 function displayCampDetails (nameCodeStr) {
     aboutSection.parentElement.classList.add("is-hidden")
     campSection.parentElement.classList.remove("is-hidden")
@@ -202,26 +160,55 @@ function displayCampDetails (nameCodeStr) {
     campFavBtn.setAttribute("data-nameCode", campObj.nameCode);
     if (storedFavsArr.find(obj => obj.nameCode == nameCodeStr)) {
         campFavBtn.setAttribute("class", "fav-btn-checked");
+    } else {
+        campFavBtn.setAttribute("class", "fav-btn-unchecked")
     };
 
     campURL.setAttribute("href", campObj.url);
-    console.log(campObj);
 
     do {
         infoListUl.removeChild(infoListUl.firstChild);
     } while (infoListUl.firstChild);
-    ["location","campsites","amenities", "description"].forEach(keyName => {
-        if (campObj[keyName]) { 
-            newLi = document.createElement("li");
-            newLi.textContent = `${keyName}: ${campObj[keyName]}`;
-            infoListUl.appendChild(newLi);
-        }
-    });
 
+    if (campObj.location) {
+        var locationLi = document.createElement("li");
+        locationLi.textContent = campObj.location;
+        infoListUl.appendChild(locationLi);
+    };
+    if (campObj.description) {
+        var descriptionLi = document.createElement("li");
+        descriptionLi.textContent = campObj.description;
+        infoListUl.appendChild(descriptionLi);
+    };
+    if (campObj.campsites) {
+        var campsitesLi = document.createElement("li");
+        campsitesLi.textContent = "Campsites: ";
+        infoListUl.appendChild(campsitesLi);
+        
+        var campsitesUl = document.createElement("ul")
+        infoListUl.appendChild(campsitesUl)
+        campObj.campsites.forEach(i => {
+            campsitesLi = document.createElement("li");
+            campsitesLi.textContent = "-" + i;
+            campsitesUl.appendChild(campsitesLi);
+        });
+    };
+    if (campObj.amenities) {
+        var amenitiesLi = document.createElement("li");
+        amenitiesLi.textContent = "Amenities: ";
+        infoListUl.appendChild(amenitiesLi);
 
+        var amenitiesUl = document.createElement("ul")
+        infoListUl.appendChild(amenitiesUl)
+        campObj.amenities.forEach(i => {
+            amenitiesLi = document.createElement("li");
+            amenitiesLi.textContent = "-" + i;
+            amenitiesUl.appendChild(amenitiesLi);
+        });
+    };
 };
 
-
+// Switch list shown on page from Favorites to Results
 function toggleFavRes(mode = "res") {
     if (mode == "fav") {
         favToggleBtn.setAttribute("class", "checked");
@@ -229,8 +216,7 @@ function toggleFavRes(mode = "res") {
 
         resToggleBtn.setAttribute("class", "unchecked");
         resultsUl.setAttribute("class", "is-hidden")
-    }
-    else {
+    } else {
         favToggleBtn.setAttribute("class", "unchecked");
         favoritesUl.setAttribute("class", "is-hidden");
 
@@ -239,12 +225,18 @@ function toggleFavRes(mode = "res") {
     }
 };
 
-    
+// ASTRONOMY API FUNCTION
 function chartMaker(lat, lon, date) {
-    chartImg.setAttribute('src', '../assets/images/loading.gif');
-    // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
-    // Can change it to a different constellation, or perspective.
-    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+    chartImg.setAttribute('src', './assets/images/loading.gif');
+
+    // Below are the two different request formats for the astronomy API
+
+    // Pulls a view of a specific constellation (given by it's 3-letter abbreviation)
+    // var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+
+    // Pulls a view of a portion the sky given a certain set of degrees on the celestial sphere
+    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"area\",\"parameters\":{\"position\":{\"equatorial\":{\"rightAscension\":0,\"declination\":0}},\"zoom\":2}}}`;
+
     fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
         headers: {
             Authorization: `Basic ${astroAPIkey}`
@@ -252,11 +244,9 @@ function chartMaker(lat, lon, date) {
         method: "POST",
         body: specs
     }).then(function(response){
-        console.log(response);
         return response.json();
     }).then(function(data){
-        console.log(data);
-        console.log(data.data.imageUrl);
+        // Replaces the chartImg src with the retrieved image
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
@@ -296,7 +286,7 @@ function npsResponse(campground){
     // object to hold necessary info for each camp 
     var campObj = {
         name: name,
-        nameCode: name + "-" + parkcode,
+        nameCode: `${name}_${parkcode}`.replace(/[\W]+/gi,""),
         latitude: lat,
         longitude: lon,
         location: location,
@@ -321,7 +311,6 @@ function npsSearch(campSearchInput) {
         var stateRequest = `https://developer.nps.gov/api/v1/campgrounds?stateCode=${campSearchInput}&start=${startNum}&api_key=${npsAPIkey}`;
 
         fetch(stateRequest).then(response => response.json()).then(data => {
-            console.log(data);
             // if no result for search, no result card will appear
             if (data.total == 0) {
                 var noResult = document.createElement('h3');
@@ -340,10 +329,10 @@ function npsSearch(campSearchInput) {
         })
     // if input isn't a state code it will be treated as a key word request
     } else {
+        campSearchInput = encodeURIComponent(campSearchInput)
         var keywordRequest = `https://developer.nps.gov/api/v1/campgrounds?q=${campSearchInput}&limit=5&api_key=${npsAPIkey}`;
-
+        
         fetch(keywordRequest).then(response => response.json()).then(data => {
-            console.log(data);
             if (data.total == 0) {
                 var noResult = document.createElement('h3');
                 noResult.textContent = 'No results';
@@ -357,10 +346,6 @@ function npsSearch(campSearchInput) {
         })
     }
 }
-// to test results just uncomment one of the below: 
-// npsSearch('WA'); //state search results
-//npsSearch('Lake Stevens'); //keyword results
-//npsSearch('Rainier'); //no results
 
 // function running search
 function runSearch() {
@@ -374,7 +359,7 @@ function runSearch() {
         campSearchInput.value = '';
 }
 
-// Event listeners and page load calls
+// Event listeners 
     // favorite btns event listeners
 campFavBtn.addEventListener("click", handlerFavoritesClick);
 resultsUl.addEventListener("click", handlerCardClick);
@@ -404,11 +389,16 @@ datePickerInput.addEventListener('keypress', function(e) {
     }
 });
 
-    // page load calls
+// Page load calls
 retrieveFavorites();
+
+$( function() {
+    $('#datepicker').datepicker({
+      changeMonth: true,
+      changeYear: true,
+    });
+} );
 datePickerInput.value = dayjs().format("MM/DD/YYYY");
-
-
 
 
 
