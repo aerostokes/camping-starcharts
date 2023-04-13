@@ -9,6 +9,7 @@
 }   
 
 /* LAZY RESET */
+
 * {
   margin: 0;
   padding: 0;
@@ -23,6 +24,20 @@ html {
   background-size: fill;
 }
 
+header,
+.about,
+#camp,
+.search {
+  background: rgba(0,0,0,70%);
+}
+
+/* MAIN STYLING */
+
+main {
+  display: flex;
+  align-items: center;
+}
+
 /* HEADER STYLING */
 
 header {
@@ -35,10 +50,12 @@ header {
   z-index: 0;
 }
 
-main {
-  display: flex;
-  align-items: center;
+#ham-btn {
+  display: none;
+  font-size: 48px;
 }
+
+/* SEARCH SECTION STYLING */
 
 .search {
   background-color: var(--dark-color);
@@ -77,6 +94,12 @@ input {
   background-color: var(--highlight);
   color: var(--dark-color);
   transition: all .35s ease;
+  font-weight: 500;
+}
+
+#search-btn:hover {
+  background-color: var(--accent-dark);
+  color: var(--light-color)
 }
 
 label,
@@ -89,25 +112,7 @@ label {
   font-weight: 500;
 }
 
-#search-btn {
-  font-weight: 500;
-}
-
-.card h3 {
-  font-weight: 400;
-}
-
-.about h2 {
-  font-family: "Josefin Sans",sans-serif;
-  font-weight: 300;
-}
-
-
-
-#search-btn:hover {
-  background-color: var(--accent-dark);
-  color: var(--light-color)
-}
+/* TOGGLE BUTTON STYLING */
 
 #toggle-container {
   display: flex;
@@ -129,22 +134,19 @@ button#res-toggle {
   justify-content: center;
 }
 
-button#fav-toggle span, button#res-toggle span {
+button#fav-toggle span,
+button#res-toggle span {
   pointer-events: none;
   text-align: center;
   transform: translateX(-5%);
-  
-}
-
-.about img {
-  height: auto;
-  width: 25rem;
 }
 
 .checked span.icon {
   color: var(--highlight);
   font-variation-settings: 'FILL' 100;
 }
+
+/* RESULT CARD STYLING */
 
 .card {
   margin: 2% .5%;
@@ -154,23 +156,15 @@ button#fav-toggle span, button#res-toggle span {
   padding: 5px;
 }
 
-.card:hover {
-  transform: scale(1.025,1.025);
-  transition: all .25s ease;
-}
-.card h3{
+.card h3 {
   font-size: 20px;
+  font-weight: 400;
   pointer-events: none;
 }
 
-button.fav-btn-unchecked {
-  color: var(--accent-ultra-light);
-  transition: all .35s ease;
-}
-
-button.fav-btn-checked,
-button.fav-btn-unchecked:hover {
-  color: var(--highlight);
+.card:hover {
+  transform: scale(1.025,1.025);
+  transition: all .25s ease;
 }
 
 /* CAMPGROUND INFO SECTION */
@@ -196,6 +190,13 @@ button.fav-btn-unchecked:hover {
   font-variation-settings: 'PSZ' 48;
 }
 
+.chart-container {
+  margin: 10px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
 /* INFO ASIDE SECTION */
 
 #info {
@@ -215,21 +216,11 @@ button.fav-btn-unchecked:hover {
   padding-left: 10px;
 }
 
-.chart-container {
-  margin: 10px;
-  margin-bottom: 0;
-  display: flex;
-  justify-content: center;
-}
-
-#ham-btn {
-  display: none;
-  font-size: 48px;
-}
-
-aside ul li {
+#info ul li {
   list-style-type: none;
 }
+
+/* ABOUT SECTION STYLING */
 
 .about {
   background-color: var(--dark-color);
@@ -240,6 +231,8 @@ aside ul li {
 }
 
 .about h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
   padding: 2%;
   display: block;
   justify-content: center;
@@ -248,6 +241,8 @@ aside ul li {
 }
 
 .about img {
+  height: auto;
+  width: 25rem;
   padding: 0 3%;
 }
 
@@ -256,29 +251,34 @@ aside ul li {
   font-size: 100%;
 }
 
+/* FAVORITE BUTTON STYLING */
 
-.fav-btn-unchecked, .fav-btn-checked {
+.fav-btn-unchecked {
+  color: var(--accent-ultra-light);
+  transition: all .35s ease;
+}
+
+.fav-btn-checked,
+.fav-btn-unchecked:hover {
+  color: var(--highlight);
+}
+
+.fav-btn-unchecked,
+.fav-btn-checked {
   border: 0px;
   background-color: #00000000;
   display: inline;
 }
 
-.fav-btn-checked span, .fav-btn-unchecked span {
+.fav-btn-checked span,
+.fav-btn-unchecked span {
   pointer-events: none;
-}
-
-header,
-.about,
-#camp,
-.search {
-  background: rgba(0,0,0,70%);
 }
 
 .fav-btn-checked span {
   font-variation-settings: 'FILL' 100;
   color: var(--highlight-color);
 }
-
 
 /**
 * SCREEN RESPONSIVENESS 
