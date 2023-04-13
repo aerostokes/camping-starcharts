@@ -166,10 +166,7 @@ function displayCampDetails (nameCodeStr) {
 
     campURL.setAttribute("href", campObj.url);
 
-    do {
-        infoListUl.removeChild(infoListUl.firstChild);
-    } while (infoListUl.firstChild);
-
+    infoListUl.innerHTML=''
     if (campObj.location) {
         var locationLi = document.createElement("li");
         locationLi.textContent = campObj.location;
