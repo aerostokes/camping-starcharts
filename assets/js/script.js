@@ -295,7 +295,7 @@ function npsResponse(campground){
     // object to hold necessary info for each camp 
     var campObj = {
         name: name,
-        nameCode: name + "-" + parkcode,
+        nameCode: `${name}_${parkcode}`.replace(/[\W]+/gi,""),
         latitude: lat,
         longitude: lon,
         location: location,
@@ -339,8 +339,9 @@ function npsSearch(campSearchInput) {
         })
     // if input isn't a state code it will be treated as a key word request
     } else {
+        campSearchInput = encodeURIComponent(campSearchInput)
         var keywordRequest = `https://developer.nps.gov/api/v1/campgrounds?q=${campSearchInput}&limit=5&api_key=${npsAPIkey}`;
-
+        
         fetch(keywordRequest).then(response => response.json()).then(data => {
             console.log(data);
             if (data.total == 0) {
