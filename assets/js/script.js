@@ -241,6 +241,7 @@ function toggleFavRes(mode = "res") {
 
     
 function chartMaker(lat, lon, date) {
+    chartImg.setAttribute('src', '../assets/images/loading.gif');
     // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
     // Can change it to a different constellation, or perspective.
     var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
@@ -405,8 +406,7 @@ datePickerInput.addEventListener('keypress', function(e) {
 
     // page load calls
 retrieveFavorites();
-datePickerInput.value = dayjs().format("MM/DD/YYYY")
-
+datePickerInput.value = dayjs().format("MM/DD/YYYY");
 
 
 
