@@ -198,11 +198,11 @@ function displayCampDetails (nameCodeStr) {
     if (!datePickerInput.value) { datePickerInput.value = dayjs().format("MM/DD/YYYY") }
     chartMaker(campObj.latitude, campObj.longitude, dayjs(datePickerInput.value,"MM/DD/YYYY").format("YYYY-MM-DD"));
 
-    console.log(campObj.latitude);
-    console.log(campObj.longitude);
-    console.log(datePickerInput.value);
-
     campNameEl.textContent = campObj.name;
+    campFavBtn.setAttribute("data-nameCode", campObj.nameCode);
+    if (storedFavsArr.find(obj => obj.nameCode == nameCodeStr)) {
+        campFavBtn.setAttribute("class", "fav-btn-checked");
+    };
 
     campURL.setAttribute("href", campObj.url);
     console.log(campObj);
@@ -241,6 +241,7 @@ function toggleFavRes(mode = "res") {
 
     
 function chartMaker(lat, lon, date) {
+    chartImg.setAttribute('src', '../assets/images/loading.gif');
     // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
     // Can change it to a different constellation, or perspective.
     var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
@@ -363,6 +364,9 @@ function npsSearch(campSearchInput) {
 
 // function running search
 function runSearch() {
+    if (window.innerWidth<768) {
+        searchSection.classList.add("is-hidden")
+    }
     var campInput = campSearchInput.value.toUpperCase();
         dateInput = datePickerInput.value;
         npsSearch(campInput);
@@ -379,6 +383,13 @@ toggleDiv.addEventListener("click", function(event) {
     if (event.target.matches("#fav-toggle")) { toggleFavRes("fav") }
     else { toggleFavRes("res") };
 });
+hamBtn.addEventListener("click",function(){
+    if (searchSection.classList.contains("is-hidden")) {
+        searchSection.classList.remove("is-hidden");
+    } else {
+        searchSection.classList.add("is-hidden");
+    }
+})
 
     // search event listeners
 searchBtn.addEventListener('click', runSearch);
@@ -395,8 +406,7 @@ datePickerInput.addEventListener('keypress', function(e) {
 
     // page load calls
 retrieveFavorites();
-datePickerInput.value = dayjs().format("MM/DD/YYYY")
-
+datePickerInput.value = dayjs().format("MM/DD/YYYY");
 
 
 
