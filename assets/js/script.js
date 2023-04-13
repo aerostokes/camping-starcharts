@@ -239,12 +239,18 @@ function toggleFavRes(mode = "res") {
     }
 };
 
-    
+// ASTRONOMY API FUNCTION
 function chartMaker(lat, lon, date) {
-    chartImg.setAttribute('src', '../assets/images/loading.gif');
-    // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
-    // Can change it to a different constellation, or perspective.
-    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+    chartImg.setAttribute('src', './assets/images/loading.gif');
+
+    // Below are the two different request formats for the astronomy API
+
+    // Pulls a view of a specific constellation (given by it's 3-letter abbreviation)
+    // var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+
+    // Pulls a view of a portion the sky given a certain set of degrees on the celestial sphere
+    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"area\",\"parameters\":{\"position\":{\"equatorial\":{\"rightAscension\":0,\"declination\":0}},\"zoom\":2}}}`;
+
     fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
         headers: {
             Authorization: `Basic ${astroAPIkey}`
@@ -252,11 +258,9 @@ function chartMaker(lat, lon, date) {
         method: "POST",
         body: specs
     }).then(function(response){
-        console.log(response);
         return response.json();
     }).then(function(data){
-        console.log(data);
-        console.log(data.data.imageUrl);
+        // Replaces the chartImg src with the retrieved image
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
@@ -296,7 +300,7 @@ function npsResponse(campground){
     // object to hold necessary info for each camp 
     var campObj = {
         name: name,
-        nameCode: name + "-" + parkcode,
+        nameCode: `${name}_${parkcode}`.replace(/[\W]+/gi,""),
         latitude: lat,
         longitude: lon,
         location: location,
@@ -340,8 +344,9 @@ function npsSearch(campSearchInput) {
         })
     // if input isn't a state code it will be treated as a key word request
     } else {
+        campSearchInput = encodeURIComponent(campSearchInput)
         var keywordRequest = `https://developer.nps.gov/api/v1/campgrounds?q=${campSearchInput}&limit=5&api_key=${npsAPIkey}`;
-
+        
         fetch(keywordRequest).then(response => response.json()).then(data => {
             console.log(data);
             if (data.total == 0) {
