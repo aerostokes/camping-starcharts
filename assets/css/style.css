@@ -17,6 +17,7 @@
 } 
 
 /* BACKGROUND STYLING */
+
 html {
   background-color: #0a0a0a;
   background-image: url(../images/starry-bg.png);
@@ -205,6 +206,7 @@ button#res-toggle span {
 
 #info h3 {
   font-size: 175%;
+  padding-bottom: 10px;
 }
 
 /* The New Tab Icon */
@@ -215,21 +217,20 @@ button#res-toggle span {
   padding-left: 10px;
 }
 
+#info ul {
+  padding-right: 10px;
+}
+
 #info ul li {
   list-style-type: none;
-  padding-top: 3px;
+  padding-top: 5px;
 }
 
-/* #info ul li:first-child {
-  padding-top: 10px;
-  color: red;
+#info ul li:first-child {
+  border-top: 2px solid var(--light-color);
 }
 
-#info ul li:last-child {
-  color: blue;
-} */
-
-#info ul li ul {
+#info ul li+ul {
   padding-left: 10px;
   padding-top: 5px;;
 }
