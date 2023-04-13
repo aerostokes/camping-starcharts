@@ -24,45 +24,6 @@ var displayedFavsArr = []
 var storedFavsArr = []
 
 
-
-
-
-// On page load, populate favorites from localStorage (if any)
-
-// Collect and store campSearchInput and datePickerInput
-
-// Fetch from NPS API using search parameters
-    // If campSearchInput exists in stateCodeArr: call function stateSearch
-    // Otherwise, call function keywordSearch
-    // function stateSearch: randomly select starting point, pull 50 results, randomly return 5 result.
-    // function keywordSearch: use q search, return top 5
-
-// With the data returned:
-    // Check for physical address to prevent errors, add placeholder text if null 
-    // Store the lat/lon of the found campsites, 
-
-// Create and append to resultsUL
-
-    
-// When user clicks on li's of resultsUl, feed lat/lon and datePickerInput to astronomy API
-    // Collect and store img URL and campground info
-
-// Update chartImg src and populate infoAside
-
-
-// If the user clicks fav-btn: 
-    // If checking the box, change the checkbox style and to "filled" and store camp-name, location, lat/lon in localStorage.
-    // If unchecking the box, remove from localStorage
-// ---------------------------------------------------------------
-
-$( function() {
-    $('#datepicker').datepicker({
-      changeMonth: true,
-      changeYear: true,
-    });
-} );
-
-
 // Unfavorite and remove from localStorage
 function removeFavorite(clickedButton) {
         // Read data-nameCode from page. Remove matching object from the storedFavsArr and updated localStorage.
@@ -157,7 +118,6 @@ function retrieveFavorites() {
 // Handler for if user clicks on a favorite button (either from the cards or from the campSection)
 function handlerFavoritesClick(event) {
     var clickedButton = event.target;
-    // var clickedParent = clickedButton.parentElement;
     if (clickedButton.getAttribute("class") == "fav-btn-checked") {
         removeFavorite(clickedButton);
     }
@@ -187,7 +147,7 @@ function handlerCardClick (event) {
     };
 };
 
-
+// Populate the page with details from the campObj 
 function displayCampDetails (nameCodeStr) {
     aboutSection.parentElement.classList.add("is-hidden")
     campSection.parentElement.classList.remove("is-hidden")
@@ -208,7 +168,6 @@ function displayCampDetails (nameCodeStr) {
     };
 
     campURL.setAttribute("href", campObj.url);
-    console.log(campObj);
 
     do {
         infoListUl.removeChild(infoListUl.firstChild);
@@ -229,12 +188,12 @@ function displayCampDetails (nameCodeStr) {
         campsitesLi.textContent = "Campsites: ";
         infoListUl.appendChild(campsitesLi);
         
-        var campsitesUi = document.createElement("ui")
-        infoListUl.appendChild(campsitesUi)
+        var campsitesUl = document.createElement("ul")
+        infoListUl.appendChild(campsitesUl)
         campObj.campsites.forEach(i => {
             campsitesLi = document.createElement("li");
             campsitesLi.textContent = "-" + i;
-            campsitesUi.appendChild(campsitesLi);
+            campsitesUl.appendChild(campsitesLi);
         });
     };
     if (campObj.amenities) {
@@ -242,17 +201,17 @@ function displayCampDetails (nameCodeStr) {
         amenitiesLi.textContent = "Amenities: ";
         infoListUl.appendChild(amenitiesLi);
 
-        var amenitiesUi = document.createElement("ui")
-        infoListUl.appendChild(amenitiesUi)
+        var amenitiesUl = document.createElement("ul")
+        infoListUl.appendChild(amenitiesUl)
         campObj.amenities.forEach(i => {
             amenitiesLi = document.createElement("li");
             amenitiesLi.textContent = "-" + i;
-            amenitiesUi.appendChild(amenitiesLi);
+            amenitiesUl.appendChild(amenitiesLi);
         });
     };
 };
 
-
+// Switch list shown on page from Favorites to Results
 function toggleFavRes(mode = "res") {
     if (mode == "fav") {
         favToggleBtn.setAttribute("class", "checked");
@@ -356,7 +315,6 @@ function npsSearch(campSearchInput) {
         var stateRequest = `https://developer.nps.gov/api/v1/campgrounds?stateCode=${campSearchInput}&start=${startNum}&api_key=${npsAPIkey}`;
 
         fetch(stateRequest).then(response => response.json()).then(data => {
-            console.log(data);
             // if no result for search, no result card will appear
             if (data.total == 0) {
                 var noResult = document.createElement('h3');
@@ -379,7 +337,6 @@ function npsSearch(campSearchInput) {
         var keywordRequest = `https://developer.nps.gov/api/v1/campgrounds?q=${campSearchInput}&limit=5&api_key=${npsAPIkey}`;
         
         fetch(keywordRequest).then(response => response.json()).then(data => {
-            console.log(data);
             if (data.total == 0) {
                 var noResult = document.createElement('h3');
                 noResult.textContent = 'No results';
@@ -393,10 +350,6 @@ function npsSearch(campSearchInput) {
         })
     }
 }
-// to test results just uncomment one of the below: 
-// npsSearch('WA'); //state search results
-//npsSearch('Lake Stevens'); //keyword results
-//npsSearch('Rainier'); //no results
 
 // function running search
 function runSearch() {
@@ -410,7 +363,7 @@ function runSearch() {
         campSearchInput.value = '';
 }
 
-// Event listeners and page load calls
+// Event listeners 
     // favorite btns event listeners
 campFavBtn.addEventListener("click", handlerFavoritesClick);
 resultsUl.addEventListener("click", handlerCardClick);
@@ -440,11 +393,16 @@ datePickerInput.addEventListener('keypress', function(e) {
     }
 });
 
-    // page load calls
+// Page load calls
 retrieveFavorites();
+
+$( function() {
+    $('#datepicker').datepicker({
+      changeMonth: true,
+      changeYear: true,
+    });
+} );
 datePickerInput.value = dayjs().format("MM/DD/YYYY");
-
-
 
 
 
