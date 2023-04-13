@@ -242,8 +242,15 @@ function toggleFavRes(mode = "res") {
 // ASTRONOMY API FUNCTION
 function chartMaker(lat, lon, date) {
     chartImg.setAttribute('src', './assets/images/loading.gif');
+
+    // Below are the two different request formats for the astronomy API
+
+    // Pulls a view of a specific constellation (given by it's 3-letter abbreviation)
     // var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+
+    // Pulls a view of a portion the sky given a certain set of degrees on the celestial sphere
     var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"area\",\"parameters\":{\"position\":{\"equatorial\":{\"rightAscension\":0,\"declination\":0}},\"zoom\":2}}}`;
+
     fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
         headers: {
             Authorization: `Basic ${astroAPIkey}`
@@ -251,11 +258,9 @@ function chartMaker(lat, lon, date) {
         method: "POST",
         body: specs
     }).then(function(response){
-        console.log(response);
         return response.json();
     }).then(function(data){
-        console.log(data);
-        console.log(data.data.imageUrl);
+        // Replaces the chartImg src with the retrieved image
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
