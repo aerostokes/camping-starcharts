@@ -179,15 +179,16 @@ button#res-toggle span {
 #camp h2 {
   font-size: 250%;
   padding: 20px;
+  padding-right: 10px;
   font-family: "Josefin Sans",sans-serif;
   font-weight: 300;
 }
 
+/* Campground Large Favorite Button */
 #camp span.icon button span {
   text-align: center;
-  margin-top: 15px;
+  margin-top: 25px;
   font-size: 40px;
-  font-variation-settings: 'PSZ' 48;
 }
 
 .chart-container {
@@ -281,9 +282,14 @@ button#res-toggle span {
 }
 
 /**
-* SCREEN RESPONSIVENESS 
+* SCREEN RESPONSIVENESS
+* 1216px stacks the "Results" and "Favorites" buttons on less-than-widescreen displays
+* 1024px reduces the font sizes of certain elements
+* 768px stacks all sections and shows the hamburger button
+* All our breakpoints are based off Bulma breakpoints
 */
 
+/* Below Widescreen */
 @media screen and (max-width: 1216px) {
   #toggle-container {
     flex-direction: column;
@@ -296,7 +302,7 @@ button#res-toggle span {
   }
 }
 
-/* 992px */
+/* Below Desktop */
 @media screen and (max-width: 1024px) {
   #camp h2 {
     font-size: 28px;
@@ -310,11 +316,7 @@ button#res-toggle span {
   }
 }
 
-/**
-* 768px
-* Hamburger Button is not visible until now
-*/
-
+/* Mobile Screens Only */
 @media screen and (max-width: 768px) {
   header img {
     width: 250px;
