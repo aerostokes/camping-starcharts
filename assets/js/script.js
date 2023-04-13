@@ -198,11 +198,11 @@ function displayCampDetails (nameCodeStr) {
     if (!datePickerInput.value) { datePickerInput.value = dayjs().format("MM/DD/YYYY") }
     chartMaker(campObj.latitude, campObj.longitude, dayjs(datePickerInput.value,"MM/DD/YYYY").format("YYYY-MM-DD"));
 
-    console.log(campObj.latitude);
-    console.log(campObj.longitude);
-    console.log(datePickerInput.value);
-
     campNameEl.textContent = campObj.name;
+    campFavBtn.setAttribute("data-nameCode", campObj.nameCode);
+    if (storedFavsArr.find(obj => obj.nameCode == nameCodeStr)) {
+        campFavBtn.setAttribute("class", "fav-btn-checked");
+    };
 
     campURL.setAttribute("href", campObj.url);
     console.log(campObj);
