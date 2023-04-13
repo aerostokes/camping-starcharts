@@ -202,6 +202,9 @@ function displayCampDetails (nameCodeStr) {
     campFavBtn.setAttribute("data-nameCode", campObj.nameCode);
     if (storedFavsArr.find(obj => obj.nameCode == nameCodeStr)) {
         campFavBtn.setAttribute("class", "fav-btn-checked");
+    }
+    else {
+        campFavBtn.setAttribute("class", "fav-btn-unchecked")
     };
 
     campURL.setAttribute("href", campObj.url);
@@ -210,15 +213,43 @@ function displayCampDetails (nameCodeStr) {
     do {
         infoListUl.removeChild(infoListUl.firstChild);
     } while (infoListUl.firstChild);
-    ["location","campsites","amenities", "description"].forEach(keyName => {
-        if (campObj[keyName]) { 
-            newLi = document.createElement("li");
-            newLi.textContent = `${keyName}: ${campObj[keyName]}`;
-            infoListUl.appendChild(newLi);
-        }
-    });
 
+    if (campObj.location) {
+        var locationLi = document.createElement("li");
+        locationLi.textContent = campObj.location;
+        infoListUl.appendChild(locationLi);
+    };
+    if (campObj.description) {
+        var descriptionLi = document.createElement("li");
+        descriptionLi.textContent = campObj.description;
+        infoListUl.appendChild(descriptionLi);
+    };
+    if (campObj.campsites) {
+        var campsitesLi = document.createElement("li");
+        campsitesLi.textContent = "Campsites: ";
+        infoListUl.appendChild(campsitesLi);
+        
+        var campsitesUi = document.createElement("ui")
+        infoListUl.appendChild(campsitesUi)
+        campObj.campsites.forEach(i => {
+            campsitesLi = document.createElement("li");
+            campsitesLi.textContent = "-" + i;
+            campsitesUi.appendChild(campsitesLi);
+        });
+    };
+    if (campObj.amenities) {
+        var amenitiesLi = document.createElement("li");
+        amenitiesLi.textContent = "Amenities: ";
+        infoListUl.appendChild(amenitiesLi);
 
+        var amenitiesUi = document.createElement("ui")
+        infoListUl.appendChild(amenitiesUi)
+        campObj.amenities.forEach(i => {
+            amenitiesLi = document.createElement("li");
+            amenitiesLi.textContent = "-" + i;
+            amenitiesUi.appendChild(amenitiesLi);
+        });
+    };
 };
 
 
