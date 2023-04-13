@@ -140,6 +140,9 @@ function handlerCardClick (event) {
         } else if (clickedEl.parentElement.matches("li")) { 
             clickedLi = clickedEl.parentElement
         } else { return };
+        if (window.innerWidth<768) {
+            searchSection.classList.add("is-hidden")
+        }
         var nameCodeStr = clickedLi.querySelector("button").getAttribute("data-nameCode")
         displayCampDetails (nameCodeStr);
     };
@@ -346,9 +349,6 @@ function npsSearch(campSearchInput) {
 
 // function running search
 function runSearch() {
-    if (window.innerWidth<768) {
-        searchSection.classList.add("is-hidden")
-    }
     var campInput = campSearchInput.value.toUpperCase();
         dateInput = datePickerInput.value;
         npsSearch(campInput);
