@@ -5,7 +5,9 @@ var searchSection = document.querySelector(".search");
 var campSearchInput = document.getElementById("camp-search");
 var datePickerInput = document.getElementById("datepicker");
 var searchBtn = document.getElementById("search-btn");
+var toggleDiv = document.getElementById("toggle-container");
 var favToggleBtn = document.getElementById("fav-toggle");
+var resToggleBtn = document.getElementById("res-toggle")
 var favoritesUl = document.getElementById("favorites");
 var resultsUl = document.getElementById("results");
 var campSection = document.getElementById("camp");
@@ -20,7 +22,9 @@ var stateCodeArr = [ 'AL', 'AK', 'AS', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC',
 var campResultsArr = [];
 var displayedFavsArr = []
 var storedFavsArr = []
-var dateInput = '';
+
+
+
 
 
 // On page load, populate favorites from localStorage (if any)
@@ -54,7 +58,7 @@ var dateInput = '';
 $( function() {
     $('#datepicker').datepicker({
       changeMonth: true,
-      changeYear: true
+      changeYear: true,
     });
 } );
 
@@ -166,17 +170,78 @@ function handlerFavoritesClick(event) {
 // Handler for if user clicks anywhere in resultsUl or favoritesUl
 function handlerCardClick (event) {
     var clickedEl = event.target;
+    var clickedLi
     if (clickedEl.matches("button")) {
         handlerFavoritesClick(event);
     }
-    else if (clickedEl.parentElement.matches("li")) {
-// TODO: populate campSection with the info for this card 
-        console.log(clickedEl.parentElement);
+    else {
+        if (clickedEl.matches("li"))  { 
+            clickedLi = clickedEl
+        } 
+        else if (clickedEl.parentElement.matches("li")) { 
+            clickedLi = clickedEl.parentElement
+        }
+        else { return };
+        var nameCodeStr = clickedLi.querySelector("button").getAttribute("data-nameCode")
+        displayCampDetails (nameCodeStr);
     };
+};
+
+
+function displayCampDetails (nameCodeStr) {
+    aboutSection.parentElement.classList.add("is-hidden")
+    campSection.parentElement.classList.remove("is-hidden")
+
+    var campObj = campResultsArr.find(obj => obj.nameCode == nameCodeStr);
+    if (campObj == null) { campObj = displayedFavsArr.find(obj=> obj.nameCode == nameCodeStr)};
+
+    if (!datePickerInput.value) { datePickerInput.value = dayjs().format("MM/DD/YYYY") }
+    chartMaker(campObj.latitude, campObj.longitude, dayjs(datePickerInput.value,"MM/DD/YYYY").format("YYYY-MM-DD"));
+
+    campNameEl.textContent = campObj.name;
+    campFavBtn.setAttribute("data-nameCode", campObj.nameCode);
+    if (storedFavsArr.find(obj => obj.nameCode == nameCodeStr)) {
+        campFavBtn.setAttribute("class", "fav-btn-checked");
+    };
+
+    campURL.setAttribute("href", campObj.url);
+    console.log(campObj);
+
+    do {
+        infoListUl.removeChild(infoListUl.firstChild);
+    } while (infoListUl.firstChild);
+    ["location","campsites","amenities", "description"].forEach(keyName => {
+        if (campObj[keyName]) { 
+            newLi = document.createElement("li");
+            newLi.textContent = `${keyName}: ${campObj[keyName]}`;
+            infoListUl.appendChild(newLi);
+        }
+    });
+
+
+};
+
+
+function toggleFavRes(mode = "res") {
+    if (mode == "fav") {
+        favToggleBtn.setAttribute("class", "checked");
+        favoritesUl.removeAttribute("class")
+
+        resToggleBtn.setAttribute("class", "unchecked");
+        resultsUl.setAttribute("class", "is-hidden")
+    }
+    else {
+        favToggleBtn.setAttribute("class", "unchecked");
+        favoritesUl.setAttribute("class", "is-hidden");
+
+        resToggleBtn.setAttribute("class", "checked");
+        resultsUl.removeAttribute("class");
+    }
 };
 
     
 function chartMaker(lat, lon, date) {
+    chartImg.setAttribute('src', '../assets/images/loading.gif');
     // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
     // Can change it to a different constellation, or perspective.
     var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
@@ -195,7 +260,6 @@ function chartMaker(lat, lon, date) {
         chartImg.setAttribute("src",data.data.imageUrl);
     })
 }
-
 
 
 // function to pull specific data from nps response
@@ -298,19 +362,52 @@ function npsSearch(campSearchInput) {
 //npsSearch('Lake Stevens'); //keyword results
 //npsSearch('Rainier'); //no results
 
+// function running search
+function runSearch() {
+    if (window.innerWidth<768) {
+        searchSection.classList.add("is-hidden")
+    }
+    var campInput = campSearchInput.value.toUpperCase();
+        dateInput = datePickerInput.value;
+        npsSearch(campInput);
+        toggleFavRes("res");
+        campSearchInput.value = '';
+}
 
 // Event listeners and page load calls
+    // favorite btns event listeners
 campFavBtn.addEventListener("click", handlerFavoritesClick);
 resultsUl.addEventListener("click", handlerCardClick);
 favoritesUl.addEventListener("click", handlerCardClick);
-searchBtn.addEventListener('click', function() {
-    var campInput = campSearchInput.value.toUpperCase();
-    dateInput = datePickerInput.value;
-    npsSearch(campInput);
+toggleDiv.addEventListener("click", function(event) {
+    if (event.target.matches("#fav-toggle")) { toggleFavRes("fav") }
+    else { toggleFavRes("res") };
 });
-retrieveFavorites();
+hamBtn.addEventListener("click",function(){
+    if (searchSection.classList.contains("is-hidden")) {
+        searchSection.classList.remove("is-hidden");
+    } else {
+        searchSection.classList.add("is-hidden");
+    }
+})
 
-chartMaker(45.66,12.34,"2020-06-07");
+    // search event listeners
+searchBtn.addEventListener('click', runSearch);
+campSearchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        runSearch();
+    }
+});
+datePickerInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        runSearch();
+    }
+});
+
+    // page load calls
+retrieveFavorites();
+datePickerInput.value = dayjs().format("MM/DD/YYYY");
+
 
 
 

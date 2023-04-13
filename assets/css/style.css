@@ -8,11 +8,10 @@
     --highlight: #F0F287;
 }   
 
- * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-   
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 } 
 
 header {
@@ -21,23 +20,30 @@ header {
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   display: flex;
   justify-content: center;
-  border: 4px solid var(--accent-light);
+  border: 3px solid var(--accent-light);
   border-radius: 38px;
   margin: 1%;
   background-color: var(--dark-color);
+  z-index: 0;
 }
 
 body, html {
+  background-color: #0a0a0a;
   background-image: url(../images/starry-bg.png);
   height: 100%;
   background-size: fill;
+}
+
+main {
+  display: flex;
+  align-items: center;
 }
 
 .search {
   background-color: var(--dark-color);
   color: var(--light-color);
   border: 2px solid var(--highlight);
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 5%;
   display: flexbox;
   
@@ -72,27 +78,76 @@ input {
   transition: all .35s ease;
 }
 
+label,
+.card,
+button {
+  font-family: Quicksand, sans-serif;
+}
+
+label {
+  font-weight: 500;
+}
+
+#search-btn {
+  font-weight: 500;
+}
+
+.card h3 {
+  font-weight: 400;
+}
+
+.about h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
+}
+
+#camp h2 {
+  font-family: "Josefin Sans",sans-serif;
+  font-weight: 300;
+}
+
+#info {
+  font-family: Quicksand, sans-serif;
+}
+
 #search-btn:hover {
   background-color: var(--accent-dark);
   color: var(--light-color)
 }
 
-button#fav-toggle {
-  width: 100%;
+#toggle-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+button#fav-toggle,
+button#res-toggle { 
+  width: 45%;
   background-color: var(--dark-color);
-  text-align: left;
   color: var(--light-color);
-  font-size: 24px;
+  font-size: 22px;
   padding: 10px;
   display: flex;
   align-items: center;
   border: 3px solid var(--accent-light);
-  border-radius: 5px;
+  border-radius: 12px;
+  justify-content: center;
 }
 
+button#fav-toggle span, button#res-toggle span {
+  pointer-events: none;
+  text-align: center;
+  transform: translateX(-5%);
 
+}
 
-button#fav-toggle span.icon {
+.about img {
+  height: auto;
+  width: 25rem;
+}
+
+.checked span.icon {
   color: var(--highlight);
   font-variation-settings: 'FILL' 100;
 }
@@ -111,6 +166,7 @@ button#fav-toggle span.icon {
 }
 .card h3{
   font-size: 20px;
+  pointer-events: none;
 }
 
 button.fav-btn-unchecked {
@@ -132,7 +188,7 @@ button.fav-btn-unchecked:hover {
 
 #camp h2 {
   font-size: 250%;
-  padding: 10px;
+  padding: 20px;
 }
 
 #info h3 {
@@ -153,58 +209,92 @@ button.fav-btn-unchecked:hover {
   padding-left: 10px;
 }
 
-#camp img {
+#info .icon-text {
+  justify-content: end;
+}
+
+.chart-container {
   margin: 10px;
+  margin-bottom: 0;
+}
+
+#ham-btn {
+  display: none;
+  font-size: 48px;
 }
 
 aside ul li {
   list-style-type: none;
 }
-  
-  /* Gives the body element a parent height to compare against
-  html {
-    height: 100%;
-  }
-  
-  body {
-    min-height: 100%;
-    line-height: 1;
-    font-family: sans-serif;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
-    font-size: 100%;
-  } */
-  
-  /* Matches the font of special elements to the rest of the page */
-  /* input, select, option, optgroup, textarea, button,
-  pre, code {
-    font-size: 100%;
-    font-family: inherit;
-  }
-  
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+
+.about {
+  background-color: var(--dark-color);
+  color: var(--light-color);
+  border: 3px solid var(--accent-ultra-light);
+  border-radius: 20px;
+  text-align: center;
 }
 
-/* .fav-label {
-  position: relative;
+.about h2 {
+  padding: 2%;
+  display: block;
+  justify-content: center;
+  font-size: 250%;
+  font-variant: small-caps;
 }
 
-#fav-btn {
-  position: absolute;
-  opacity:0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
+.about img {
+  padding: 0 3%;
 }
 
-.fav-star {
-  position: absolute;
+.about p {
+  padding: 3%;
+  font-size: 100%;
+}
+/* Gives the body element a parent height to compare against
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  line-height: 1;
+  font-family: sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+} */
+
+/* Matches the font of special elements to the rest of the page */
+/* input, select, option, optgroup, textarea, button,
+pre, code {
+  font-size: 100%;
+  font-family: inherit;
+  }
+  
+  .material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 48
+  }
+  
+  /* .fav-label {
+    position: relative;
+  }
+  
+  #fav-btn {
+    position: absolute;
+    opacity:0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .fav-star {
+    position: absolute;
   top: 0;
   left: 0;
 } */
@@ -223,7 +313,62 @@ aside ul li {
   pointer-events: none;
 }
 
+header,
+.about,
+#camp,
+.search {
+  background: rgba(0,0,0,70%);
+}
+
 .fav-btn-checked span {
   font-variation-settings: 'FILL' 100;
   color: var(--highlight-color);
+}
+
+#info {
+  padding-bottom: 20px;
+}
+
+@media screen and (max-width: 1216px) {
+  #toggle-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  button#fav-toggle,
+  button#res-toggle {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+}
+
+/* 992px */
+@media screen and (max-width: 1024px) {
+  #camp h2 {
+    font-size: 28px;
+  }
+  #camp span.icon button span {
+    font-size: 30px;
+  }
+  #info-list,
+  #info h3 {
+    padding-left: 20px;
+  }
+}
+
+/* 768px */
+@media screen and (max-width: 768px) {
+  header img {
+    width: 250px;
+  }
+  #ham-btn {
+    display: inline;
+    position: absolute;
+    color: var(--highlight);
+    top: 20px;
+  }
+  #info span.icon span {
+    margin-top: 20px;
+    padding: 0px;
+    padding-left: 10px;
+  }
 }
