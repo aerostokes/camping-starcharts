@@ -1,4 +1,4 @@
-# Campricorn🐐🔥🏕️
+# Campricorn 🐐🔥🏕️
 
 ## 📝 Description
 
@@ -75,12 +75,15 @@ Astronomy API: https://docs.astronomyapi.com/
 **Step 6:** view the generated chart and info about the campground
 
 ***For Favorites**  
-**Step 7:** each campground has an empty star next their name that you can click on to add it to your favorites list which you can view by click the favorites button below the search button or by reloading the page  
-**Step 8:** if you want to take something off of your favorites list simply click on the filled in star and it will be removed from the list, it will still appear in the favorites list however until you reload the page incase it was unfavorited by mistake
+**Step 7:** each campground has an empty star next their name that you can click on to add it to your favorites list, which you can view by clicking the favorites button below the search button or by reloading the page  
+**Step 8:** if you want to take something off of your favorites list simply click on the filled in star and it will be removed from the list, however it will still appear in the favorites list, until you reload the page (incase it was unfavorited by mistake)
 
 ### 📸 Screenshots
+Desktop View  
+![desktop welcome page](./assets/images/desktop-home.png) ![desktop search result](./assets/images/desktop-search.png)
 
-![desktop welcome page](./assets/images/welcomePge.png)
+Mobile View  
+![mobile home page](./assets/images/mobile-home.png)![mobile search page](./assets/images/mobile-searchInput.png)![mobile search result](./assets/images/mobile-result.png)
 
 ## 🔗 Links
 
