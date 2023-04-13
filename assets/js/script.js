@@ -239,12 +239,11 @@ function toggleFavRes(mode = "res") {
     }
 };
 
-    
+// ASTRONOMY API FUNCTION
 function chartMaker(lat, lon, date) {
-    chartImg.setAttribute('src', '../assets/images/loading.gif');
-    // This pulls a view of the capricorn constellation from the given lat and lon on the given date.
-    // Can change it to a different constellation, or perspective.
-    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+    chartImg.setAttribute('src', './assets/images/loading.gif');
+    // var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"constellation\",\"parameters\":{\"constellation\":\"cap\"}}}`;
+    var specs = `{\"observer\":{\"latitude\":${lat},\"longitude\":${lon},\"date\":\"${date}\"},\"view\":{\"type\":\"area\",\"parameters\":{\"position\":{\"equatorial\":{\"rightAscension\":0,\"declination\":0}},\"zoom\":2}}}`;
     fetch("https://api.astronomyapi.com/api/v2/studio/star-chart", {
         headers: {
             Authorization: `Basic ${astroAPIkey}`
